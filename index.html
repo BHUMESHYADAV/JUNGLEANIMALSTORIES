@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jungle Animal Stories by Bhumesh Subedar Yadav</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive;
+      color: #fff;
+    }
+
+    .home-screen {
+      background-image: url("jungleanimals.png");
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .home-screen h1 {
+      font-size: 3em;
+      text-shadow: 2px 2px 8px #000;
+    }
+
+    .start-button {
+      margin-top: 30px;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      color: white;
+      box-shadow: 3px 3px #2e7d32;
+    }
+
+    .start-button:hover {
+      background-color: #388E3C;
+    }
+
+    .music-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      font-size: 1em;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+      box-shadow: 2px 2px #2e7d32;
+      z-index: 1000;
+    }
+
+    .music-toggle:hover {
+      background-color: #388E3C;
+    }
+
+    .story-section {
+      display: none;
+      background-image: url('https://cdn.pixabay.com/photo/2020/06/23/10/42/forest-5333084_1280.jpg');
+      background-size: cover;
+      background-position: center;
+      padding: 20px;
+    }
+
+    .story {
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 2px dashed #228B22;
+      border-radius: 15px;
+      padding: 15px;
+      margin: 20px 0;
+      color: #000;
+      animation: slideIn 1s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-100px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 10px;
+      display: block;
+      margin: 10px auto;
+    }
+
+    .story-button {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      box-shadow: 2px 2px #2e7d32;
+    }
+
+    .story-button:hover {
+      background-color: #388E3C;
+    }
+
+    .story-content {
+      display: none;
+      margin-top: 10px;
+    }
+
+    @media screen and (max-width: 600px) {
+      .home-screen h1 {
+        font-size: 2em;
+      }
+      .start-button, .story-button, .music-toggle {
+        font-size: 1em;
+      }
+    }
+  </style>
+  <script>
+    function startStories() {
+      document.querySelector('.home-screen').style.display = 'none';
+      document.querySelector('.story-section').style.display = 'block';
+    }
+
+    function toggleStory(id, soundId) {
+      const content = document.getElementById(id);
+      const sound = document.getElementById(soundId);
+      const isHidden = content.style.display === "none";
+      content.style.display = isHidden ? "block" : "none";
+      if (isHidden) sound.play();
+    }
+
+    function toggleMusic() {
+      const bgMusic = document.getElementById('bgMusic');
+      if (bgMusic.paused) {
+        bgMusic.play();
+      } else {
+        bgMusic.pause();
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <audio id="bgMusic" src="softmusic.mp3" loop></audio>
+
+  <div class="home-screen">
+
+    <h1>Welcome to the Jungle!</h1>
+    <p>Click below to start reading fun animal stories</p>
+    <button class="start-button" onclick="startStories()">Start Reading</button>
+  </div>
+
+  <button class="music-toggle" onclick="toggleMusic()">🎵 Toggle Music</button>
+
+  <div class="story-section">
+
+    <audio id="elephantSound" src="elephant sound.mp3"></audio>
+    <audio id="rabbitSound" src="rabbit sound.mp3"></audio>
+    <audio id="parrotSound" src="bird sound.mp3"></audio>
+    <audio id="tigerSound" src="tiger sound.mp3"></audio>
+    <audio id="monkeySound" src="https://www.soundjay.com/animal/monkey-1.mp3"></audio>
+    <audio id="chameleonSound" src="https://www.soundjay.com/button/beep-04.wav"></audio>
+
+    <div class="story">
+      <button class="story-button" onclick="toggleStory('elephant', 'elephantSound')">The Wise Elephant</button>
+      <div class="story-content" id="elephant">
+        <img src="elephant.png">
+        <p>
+      Once upon a time, in a lush green forest, there lived a wise old elephant named Gajraj. He was respected by all the animals, not just for his strength, but for his calm nature and wisdom. Whenever disputes arose, the animals would gather around him for guidance.
+    </p>
+    <p>
+      One day, a young lion named Sheru came to Gajraj, frustrated.
+    </p>
+    <p>
+      "Why does no one fear me, even though I’m the king of the jungle?" Sheru asked angrily. "I roar loudly, I show my teeth, but the other animals avoid me rather than respect me."
+    </p>
+    <p>
+      Gajraj smiled and motioned for Sheru to follow him. They walked to a nearby river. Gajraj picked up a stone with his trunk and gently dropped it into the water. Ripples spread across the surface.
+    </p>
+    <p>
+      "Tell me, Sheru, what did you see?" asked Gajraj.
+    </p>
+    <p>
+      "A stone made ripples in the water," said Sheru, confused.
+    </p>
+    <p>
+      "Exactly," said Gajraj. "Loud roars are like that stone. They disturb for a moment, then fade. True strength lies in stillness, in actions, and in wisdom. Respect is not demanded, it is earned."
+    </p>
+    <p>
+      Sheru listened quietly. From that day on, he started helping the other animals instead of scaring them. Slowly, the forest began to admire him—not for his roar, but for his heart.
+    </p>
+    <p class="moral">
+      Moral: True strength and respect come from wisdom, kindness, and understanding—not from fear or force.
+    </p>
+      </div>
+    </div>
+
+    <div class="story">
+      <button class="story-button" onclick="toggleStory('rabbit', 'rabbitSound')">The Brave Little Rabbit</button>
+      <div class="story-content" id="rabbit">
+        <img src="rabbit.png">
+        <p>Once upon a time, in a peaceful meadow nestled between tall mountains, there lived a small rabbit named Remy. Remy was the youngest and smallest of all the rabbits in his family, and while he was clever and kind, he was also quite shy and afraid of many things—loud noises, shadows, and especially the dark forest at the edge of the meadow.</p>
+    <p>All the other animals often teased him gently, calling him "Timid Remy." But Remy's grandmother would always whisper in his ear, "Bravery isn't about not being afraid, my dear—it’s about doing the right thing even when you are."</p>
+    <p>One sunny morning, a big commotion shook the meadow. The birds chirped frantically, and the squirrels ran in circles. A young fawn had wandered too far and gotten stuck in the muddy bank of the river, right at the edge of the dark forest.</p>
+    <p>None of the animals dared go near the forest. They all looked at each other, unsure what to do. But Remy, with his heart pounding, remembered his grandmother’s words.</p>
+    <p>"I’m small," he said, "but I’m fast. Maybe I can help!"</p>
+    <p>Without waiting for an answer, Remy darted through the tall grass, past the whispering trees, and toward the riverbank. The mud was thick and the fawn was scared, but Remy was clever—he found a long branch, used his nimble paws to wedge it beneath the fawn, and called for the birds to help pull from above.</p>
+    <p>With teamwork and determination, they managed to free the little fawn, who looked at Remy with grateful eyes.</p>
+    <p>When they returned to the meadow, the animals all cheered. No one called him "Timid Remy" anymore. From that day on, he was known as <strong>The Brave Little Rabbit</strong>.</p>
+    <p>And even though he still got scared sometimes, Remy always remembered: real courage comes from doing what’s right, even when you’re afraid.</p>
+      </div>
+    </div>
+
+    <div class="story">
+      <button class="story-button" onclick="toggleStory('parrot', 'parrotSound')">The Singing Parrot</button>
+      <div class="story-content" id="parrot">
+        <img src="parrot.png">
+        <p>Once upon a time in a bustling little town, there was a pet shop owned by a cheerful old man named Mr. Patel. His shop was filled with colorful birds, chirping merrily, but none were as special as <strong>Milo</strong>, a parrot with bright green feathers and a voice like honey.</p>
+
+        <p>Milo wasn't just any parrot — he could <em>sing</em>. And not just squawks and whistles — he knew actual songs! From nursery rhymes to pop tunes, Milo could mimic them all. The townsfolk often stopped by just to hear him perform.</p>
+
+        <p>One day, a rich but grumpy man named Mr. Thorne entered the shop. He heard Milo singing a perfect rendition of "Twinkle Twinkle Little Star" and was instantly amazed.</p>
+
+        <p>"I must have this bird!" Mr. Thorne demanded.</p>
+
+        <p>Mr. Patel hesitated. "He’s not for sale. He’s like family to me."</p>
+
+        <p>But Mr. Thorne wouldn't take no for an answer. He offered a huge sum of money, and after much thought, Mr. Patel reluctantly agreed, making Mr. Thorne promise to treat Milo well.</p>
+
+        <p>The next day, Milo was taken to a lavish mansion. But instead of joy, Milo found silence. Mr. Thorne never played music, never sang, and barely even spoke to him. Day after day, Milo sat in his gilded cage, quietly, no longer singing.</p>
+
+        <p>Worried, Mr. Patel came to visit. He found Milo sitting sadly, feathers ruffled.</p>
+
+        <p>“Milo, sing something for me?” he asked gently.</p>
+
+        <p>Milo shook his head.</p>
+
+        <p>Mr. Patel turned to Mr. Thorne. “You see, he doesn’t sing for money. He sings for love. For laughter. For friendship.”</p>
+
+        <p>Mr. Thorne looked at the parrot, then at Mr. Patel. After a pause, he said softly, “Maybe… I’ve forgotten how to bring joy.”</p>
+
+        <p>And so, Mr. Patel offered to visit every day, teaching Mr. Thorne to laugh again, to sing silly songs, to whistle with Milo. Bit by bit, the mansion filled with music — not just from Milo, but from everyone.</p>
+
+        <p>And soon enough, Milo began to sing again.</p>
+      </div>
+    </div>
+
+    <div class="story">
+      <button class="story-button" onclick="toggleStory('tiger', 'tigerSound')">The Lost Tiger Cub</button>
+      <div class="story-content" id="tiger">
+        <img src="tigercub.png">
+        <p>In the heart of the vast, green jungle, where the sun peeked through thick trees and birds sang sweet melodies, lived a curious little tiger cub named Tara. She had bright orange fur with bold black stripes and the biggest, roundest eyes you’d ever seen.</p>
+
+    <p>Tara loved to explore. One morning, while her mother was napping under the shade of a giant banyan tree, Tara spotted a fluttering butterfly. It was golden like the sunshine and danced through the air. Mesmerized, Tara followed it deeper into the jungle.</p>
+
+    <p>She leaped over mossy rocks and waded through a babbling brook, never taking her eyes off the butterfly. But when it finally flew out of sight, Tara looked around—and realized she was all alone.</p>
+
+    <p>The trees seemed taller, the jungle quieter. For the first time, Tara felt a little afraid.</p>
+
+    <p>“Hello?” she called out, but only the rustling leaves replied.</p>
+
+    <p>Just then, a wise old elephant named Balu appeared. His ears flapped gently as he approached.</p>
+
+    <p>“What’s a little cub doing all alone in this part of the jungle?” Balu asked kindly.</p>
+
+    <p>“I was chasing a butterfly,” Tara sniffled. “And now I’m lost.”</p>
+
+    <p>Balu raised his trunk thoughtfully. “Let’s see if we can find your way back.”</p>
+
+    <p>Along the way, they met other jungle friends. A chatty parrot flew above, squawking, “I saw a tigress near the river bend!” A family of monkeys swung from the trees and pointed the way with their tails. Even a sleepy crocodile lifted his head and mumbled, “Go left at the big mango tree.”</p>
+
+    <p>With each new helper, Tara felt braver.</p>
+
+    <p>Finally, as the sun began to set and the sky turned pink and gold, they reached the banyan tree. There, pacing with worry, was Tara’s mother.</p>
+
+    <p>“Tara!” she roared with relief, scooping her cub up with a nuzzle.</p>
+
+    <p>“I’m sorry, Mama,” Tara murmured. “I didn’t mean to wander off.”</p>
+
+    <p>Her mother licked her gently. “It’s okay, my little one. You’re home now.”</p>
+
+    <p>From that day on, Tara still explored—but never too far, and always with her mother close by.</p>
+
+    <p>And sometimes, when a golden butterfly passed by, she’d smile, remembering the adventure that brought her home.</p>
+      </div>
+    </div>
+
+    <div class="story">
+      <button class="story-button" onclick="toggleStory('monkey', 'monkeySound')">The Clever Monkey</button>
+      <div class="story-content" id="monkey">
+        <img src="monkey.png">
+        <p>Once in a jungle by the river, lived a clever monkey on a tall mango tree. He was friendly, witty, and loved by all animals. One day, a hungry crocodile came by, and the monkey kindly gave him sweet mangoes.</p>
+        <p>The crocodile kept returning, and soon they became friends. But the crocodile's wife got jealous and demanded the monkey’s heart, thinking it must be sweet too!</p>
+        <p>The crocodile reluctantly invited the monkey for a ride across the river, intending to trap him. Halfway through, he confessed the plan.</p>
+        <p>The monkey gasped, but quickly thought of an idea. “Oh! You should’ve told me earlier. I left my heart on the tree. Let’s go back and get it.”</p>
+        <p>The crocodile turned back, and as soon as they reached the shore, the monkey leapt to safety.</p>
+        <p>“Foolish crocodile,” the monkey called. “You may be strong, but brains beat brawn!”</p>
+        <p><strong>Moral:</strong> Intelligence and quick thinking can save you in tricky situations.</p>
+      </div>
+    </div>
+
+    <div class="story">
+      <button class="story-button" onclick="toggleStory('chameleon', 'chameleonSound')">The Shy Chameleon</button>
+      <div class="story-content" id="chameleon">
+        <img src="chameleon.png">
+        <p>Cammy the chameleon lived quietly in the shadows of the forest. She changed colors to hide and rarely spoke to anyone. She thought blending in was the best way to stay safe and unseen.</p>
+        <p>But one day, the jungle was in trouble. A big fire ant invasion was heading toward the animal homes. The birds flew, the monkeys swung, but no one knew what to do.</p>
+        <p>Cammy, though shy, had an idea. “Let’s lead them to the muddy swamp,” she whispered to herself. She quietly told the snakes, who passed it to the frogs, who alerted the turtles.</p>
+        <p>Soon, all the animals worked together to create a path that led the ants into the swamp. The ants got stuck and turned back.</p>
+        <p>Everyone wondered who had the idea. Cammy stayed hidden, her cheeks a light shade of pink.</p>
+        <p><strong>Moral:</strong> Even the quietest voices can make the biggest difference.</p>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
