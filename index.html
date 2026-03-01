@@ -146,6 +146,31 @@
         bgMusic.pause();
       }
     }
+
+     function readStory(id) {
+  const story = document.getElementById(id);
+  const text = story.innerText;
+
+  const speech = new SpeechSynthesisUtterance(text);
+
+  // Deep, slow, powerful style voice
+  speech.rate = 0.75;   // Slow speed
+  speech.pitch = 0.8;   // Deep voice
+  speech.volume = 1;
+
+  // Try to select a deeper male voice if available
+  const voices = window.speechSynthesis.getVoices();
+  speech.voice = voices.find(voice => 
+    voice.name.toLowerCase().includes("male") ||
+    voice.name.toLowerCase().includes("deep")
+  ) || voices[0];
+
+  window.speechSynthesis.speak(speech);
+}
+
+   function stopReading() {
+  window.speechSynthesis.cancel();
+}
   </script>
 </head>
 <body>
@@ -167,8 +192,8 @@
     <audio id="rabbitSound" src="rabbit sound.mp3"></audio>
     <audio id="parrotSound" src="bird sound.mp3"></audio>
     <audio id="tigerSound" src="tiger sound.mp3"></audio>
-    <audio id="monkeySound" src="https://www.soundjay.com/animal/monkey-1.mp3"></audio>
-    <audio id="chameleonSound" src="https://www.soundjay.com/button/beep-04.wav"></audio>
+    <audio id="monkeySound" src="monkey sound.mp3"></audio>
+    <audio id="chameleonSound" src="chameleon sound.mp3"></audio>
 
     <div class="story">
       <button class="story-button" onclick="toggleStory('elephant', 'elephantSound')">The Wise Elephant</button>
@@ -201,6 +226,8 @@
     <p class="moral">
       Moral: True strength and respect come from wisdom, kindness, and understanding—not from fear or force.
     </p>
+    <button class="story-button" onclick="readStory('elephant')">🔊 Listen Story</button>
+    <button class="story-button" onclick="stopReading()">⛔ Stop</button>
       </div>
     </div>
 
@@ -217,6 +244,8 @@
     <p>With teamwork and determination, they managed to free the little fawn, who looked at Remy with grateful eyes.</p>
     <p>When they returned to the meadow, the animals all cheered. No one called him "Timid Remy" anymore. From that day on, he was known as <strong>The Brave Little Rabbit</strong>.</p>
     <p>And even though he still got scared sometimes, Remy always remembered: real courage comes from doing what’s right, even when you’re afraid.</p>
+    <button class="story-button" onclick="readStory('rabbit')">🔊 Listen Story</button>
+    <button class="story-button" onclick="stopReading()">⛔ Stop</button>
       </div>
     </div>
 
@@ -251,6 +280,8 @@
         <p>And so, Mr. Patel offered to visit every day, teaching Mr. Thorne to laugh again, to sing silly songs, to whistle with Milo. Bit by bit, the mansion filled with music — not just from Milo, but from everyone.</p>
 
         <p>And soon enough, Milo began to sing again.</p>
+        <button class="story-button" onclick="readStory('parrot')">🔊 Listen Story</button>
+        <button class="story-button" onclick="stopReading()">⛔ Stop</button>
       </div>
     </div>
 
@@ -291,6 +322,8 @@
     <p>From that day on, Tara still explored—but never too far, and always with her mother close by.</p>
 
     <p>And sometimes, when a golden butterfly passed by, she’d smile, remembering the adventure that brought her home.</p>
+     <button class="story-button" onclick="readStory('tiger')">🔊 Listen Story</button>
+     <button class="story-button" onclick="stopReading()">⛔ Stop</button>
       </div>
     </div>
 
@@ -305,6 +338,8 @@
         <p>The crocodile turned back, and as soon as they reached the shore, the monkey leapt to safety.</p>
         <p>“Foolish crocodile,” the monkey called. “You may be strong, but brains beat brawn!”</p>
         <p><strong>Moral:</strong> Intelligence and quick thinking can save you in tricky situations.</p>
+        <button class="story-button" onclick="readStory('monkey')">🔊 Listen Story</button>
+        <button class="story-button" onclick="stopReading()">⛔ Stop</button>
       </div>
     </div>
 
@@ -318,6 +353,8 @@
         <p>Soon, all the animals worked together to create a path that led the ants into the swamp. The ants got stuck and turned back.</p>
         <p>Everyone wondered who had the idea. Cammy stayed hidden, her cheeks a light shade of pink.</p>
         <p><strong>Moral:</strong> Even the quietest voices can make the biggest difference.</p>
+        <button class="story-button" onclick="readStory('chameleon')">🔊 Listen Story</button>
+        <button class="story-button" onclick="stopReading()">⛔ Stop</button>
       </div>
 
     </div>
