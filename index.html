@@ -10,6 +10,25 @@
       color: #fff;
     }
 
+     .back-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  box-shadow: 2px 2px #2e7d32;
+  z-index: 1000;
+}
+
+.back-button:hover {
+  background-color: #388E3C;
+}
+
     .home-screen {
       background-image: url("jungleanimals.png");
       background-size: cover;
@@ -125,6 +144,23 @@
     }
   </style>
   <script>
+
+    function goHome() {
+  const bgMusic = document.getElementById('bgMusic');
+  bgMusic.pause();
+  bgMusic.currentTime = 0;
+
+  window.speechSynthesis.cancel();
+
+  document.querySelectorAll("audio").forEach(audio => {
+    audio.pause();
+    audio.currentTime = 0;
+  });
+
+  document.querySelector('.story-section').style.display = 'none';
+  document.querySelector('.home-screen').style.display = 'flex';
+}
+
     function startStories() {
       document.querySelector('.home-screen').style.display = 'none';
       document.querySelector('.story-section').style.display = 'block';
@@ -188,12 +224,19 @@
 
   <div class="story-section">
 
+    <button class="back-button" onclick="goHome()">⬅ Back to Home</button>
+
     <audio id="elephantSound" src="elephant sound.mp3"></audio>
     <audio id="rabbitSound" src="rabbit sound.mp3"></audio>
     <audio id="parrotSound" src="bird sound.mp3"></audio>
     <audio id="tigerSound" src="tiger sound.mp3"></audio>
     <audio id="monkeySound" src="monkey sound.mp3"></audio>
     <audio id="chameleonSound" src="chameleon sound.mp3"></audio>
+    <audio id="deerSound" src="deer sound.mp3"></audio>
+    <audio id="bearSound" src="bear sound.mp3"></audio>
+    <audio id="peacockSound" src="peacock sound.mp3"></audio>
+    <audio id="tortoiseSound" src="turtle sound.mp3"></audio>
+    <audio id="foxSound" src="fox sound.mp3"></audio>
 
     <div class="story">
       <button class="story-button" onclick="toggleStory('elephant', 'elephantSound')">The Wise Elephant</button>
@@ -358,7 +401,130 @@
       </div>
 
     </div>
-  </div>
+     
+   <div class="story">
+  <button class="story-button" onclick="toggleStory('deer', 'deerSound')">The Honest Deer</button>
+  <div class="story-content" id="deer">
+    <img src="deer.png">
+    <p>In a peaceful clearing of the forest lived a gentle deer named Chanchal. She was admired for her soft heart and truthful nature.</p>
+
+    <p>One afternoon, while walking near the river, she found a small leather pouch filled with shining gold coins.</p>
+
+    <p>She could have kept it. No one was around.</p>
+
+    <p>But instead, Chanchal called out loudly, “Has anyone lost something valuable?”</p>
+
+    <p>Soon, an old tortoise came slowly toward her. “Those coins are mine,” he said sadly. “I saved them to buy medicine.”</p>
+
+    <p>Without hesitation, Chanchal returned the pouch.</p>
+
+    <p>The forest animals praised her honesty, and from that day, everyone trusted her deeply.</p>
+
+    <p><strong>Moral:</strong> Honesty builds lifelong trust and respect.</p>
+    <button class="story-button" onclick="readStory('deer')">🔊 Listen Story</button>
+    <button class="story-button" onclick="stopReading()">⛔ Stop</button>
+
+    </div>
+    </div>
+
+     <div class="story">
+  <button class="story-button" onclick="toggleStory('bear', 'bearSound')">The Helpful Bear</button>
+  <div class="story-content" id="bear">
+    <img src="bear.png">
+    <p>Bruno the bear was the strongest animal in the jungle. But more than strength, he had a kind heart.</p>
+
+    <p>One night, a fierce storm destroyed many animal homes.</p>
+
+    <p>The next morning, while others worried, Bruno began lifting fallen trees and clearing paths.</p>
+
+    <p>He worked all day helping birds rebuild nests and rabbits fix burrows.</p>
+
+    <p>Though exhausted, he smiled seeing others safe.</p>
+
+    <p>The jungle realized that true power lies in helping others.</p>
+
+    <p><strong>Moral:</strong> Strength is meaningful when used to serve others.</p>
+    <button class="story-button" onclick="readStory('bear')">🔊 Listen Story</button>
+    <button class="story-button" onclick="stopReading()">⛔ Stop</button>
+
+    </div>
+    </div>
+
+     <div class="story">
+  <button class="story-button" onclick="toggleStory('peacock', 'peacockSound')">The Proud Peacock</button>
+  <div class="story-content" id="peacock">
+    <img src="peacock.png">
+    <p>Raja the peacock loved showing off his colorful feathers.</p>
+
+    <p>He often mocked the sparrows for their plain brown wings.</p>
+
+    <p>One day, a hunter entered the forest quietly.</p>
+
+    <p>Raja’s bright feathers made him easy to spot.</p>
+
+    <p>The small sparrows noticed the danger and quickly warned him.</p>
+
+    <p>Raja escaped just in time.</p>
+
+    <p>He realized beauty is nothing without humility and friendship.</p>
+
+    <p><strong>Moral:</strong> Pride can be dangerous, but humility saves us.</p>
+
+    <button class="story-button" onclick="readStory('peacock')">🔊 Listen Story</button>
+    <button class="story-button" onclick="stopReading()">⛔ Stop</button>
+
+    </div>
+    </div>
+
+     <div class="story">
+  <button class="story-button" onclick="toggleStory('tortoise', 'tortoiseSound')">The Patient Tortoise</button>
+  <div class="story-content" id="tortoise">
+    <img src="tortoise.png">
+    <p>Tinku the tortoise was slow but never gave up.</p>
+
+    <p>When a drought struck the jungle, animals needed to travel far to find water.</p>
+
+    <p>Many ran quickly but became tired halfway.</p>
+
+    <p>Tinku walked steadily without stopping.</p>
+
+    <p>After a long journey, he reached the water safely.</p>
+
+    <p>The others learned the value of patience from him.</p>
+
+    <p><strong>Moral:</strong> Slow and steady determination leads to success.</p>
+
+    <button class="story-button" onclick="readStory('tortoise')">🔊 Listen Story</button>
+    <button class="story-button" onclick="stopReading()">⛔ Stop</button>
+
+    </div>
+    </div>
+
+     <div class="story">
+  <button class="story-button" onclick="toggleStory('fox', 'foxSound')">The Kind Fox</button>
+  <div class="story-content" id="fox">
+    <img src="fox.png">
+    <p>Fiona the fox was clever but often kept to herself.</p>
+
+    <p>One winter evening, she found a tiny bird shivering in the snow.</p>
+
+    <p>Instead of ignoring it, she gently carried it to her den.</p>
+
+    <p>She kept the bird warm and shared her food.</p>
+
+    <p>When spring arrived, the bird flew away — but returned with many friends.</p>
+
+    <p>Fiona was no longer lonely.</p>
+
+    <p><strong>Moral:</strong> Kindness always comes back in beautiful ways.</p>
+
+    <button class="story-button" onclick="readStory('fox')">🔊 Listen Story</button>
+    <button class="story-button" onclick="stopReading()">⛔ Stop</button>
+
+    </div>
+    </div>
+
+    </div>
 
 </body>
 </html>
