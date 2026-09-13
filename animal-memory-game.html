@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animal Memory Card Game | Jungle Animal Stories</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#0b3d20,#1f6b3a 55%,#0e4d2a);color:#fff;min-height:100vh;padding:18px}
+.container{max-width:1050px;margin:auto;text-align:center}.title{font-size:clamp(28px,5vw,48px);margin:8px 0 4px;text-shadow:2px 3px 5px #062713}.subtitle{margin:0 0 15px;font-size:17px}
+.controls{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:14px 0}.btn{border:0;border-radius:12px;padding:11px 17px;font-size:15px;font-weight:bold;cursor:pointer;background:#fff;color:#14552d;box-shadow:0 4px 10px #0005}.btn:hover{transform:translateY(-1px)}
+.stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:12px auto 18px}.stat{background:#ffffff18;border:1px solid #ffffff3b;border-radius:12px;padding:9px 15px;min-width:110px}.stat b{display:block;font-size:20px;margin-top:2px}
+.board{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;max-width:900px;margin:auto}.card{height:135px;border:0;background:transparent;padding:0;perspective:900px;cursor:pointer}.inner{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}.card.flipped .inner,.card.matched .inner{transform:rotateY(180deg)}.face{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 5px 12px #0005}.back{background:linear-gradient(145deg,#7acb54,#276f35);font-size:42px;border:3px solid #b7ef9c}.front{background:#f8fff4;transform:rotateY(180deg);padding:8px;border:3px solid #c7f3ae}.front img{width:100%;height:100%;object-fit:contain}.matched .front{border-color:#ffe66d;box-shadow:0 0 15px #ffe66d}
+.message{min-height:34px;font-size:18px;font-weight:bold;margin:17px 0 8px}.footer{margin-top:18px;font-size:13px;opacity:.9}
+@media(max-width:800px){.board{grid-template-columns:repeat(5,1fr)}.card{height:125px}}@media(max-width:560px){body{padding:10px}.board{grid-template-columns:repeat(4,1fr);gap:8px}.card{height:105px}.stat{min-width:95px;padding:8px 10px}.btn{padding:10px 12px}}@media(max-width:360px){.board{grid-template-columns:repeat(3,1fr)}.card{height:110px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">🃏 Animal Memory Card Game</h1>
+  <p class="subtitle">Find all the matching animal pairs!</p>
+  <div class="controls">
+    <button class="btn" onclick="newGame()">🔄 New Game</button>
+    <button class="btn" onclick="location.href='index.html'">🏠 Home</button>
+    <button class="btn" onclick="location.href='jungle-map.html'">🗺️ Jungle Map</button>
+  </div>
+  <div class="stats">
+    <div class="stat">Moves<b id="moves">0</b></div>
+    <div class="stat">Pairs<b id="pairs">0 / 14</b></div>
+    <div class="stat">Time<b id="time">00:00</b></div>
+  </div>
+  <div id="board" class="board"></div>
+  <div id="message" class="message">Good luck, jungle explorer! 🌿</div>
+  <div class="footer">Jungle Animal Stories by Bhumesh Subedar Yadav</div>
+</div>
+<script>
+const animals=[
+ ['elephant','elephant.png'],['rabbit','rabbit.png'],['parrot','parrot.png'],['tiger','tigercub.png'],
+ ['monkey','monkey.png'],['chameleon','chameleon.png'],['deer','deer.png'],['bear','bear.png'],
+ ['peacock','peacock.png'],['tortoise','tortoise.png'],['fox','fox.png'],['lion','lionrabbit.png'],
+ ['owl','owl.png'],['zebra','zebra.png']
+];
+let first=null,second=null,lock=false,moves=0,matches=0,seconds=0,timer=null;
+const board=document.getElementById('board');
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function newGame(){
+ clearInterval(timer);first=second=null;lock=false;moves=matches=seconds=0;
+ document.getElementById('moves').textContent=0;document.getElementById('pairs').textContent='0 / '+animals.length;document.getElementById('time').textContent='00:00';
+ document.getElementById('message').textContent='Good luck, jungle explorer! 🌿';
+ const deck=shuffle([...animals,...animals]);board.innerHTML='';
+ deck.forEach(([id,img])=>{
+   const card=document.createElement('button');card.className='card';card.dataset.id=id;card.setAttribute('aria-label','Hidden animal card');
+   card.innerHTML=`<div class="inner"><div class="face back">🌿</div><div class="face front"><img src="${img}" alt="${id}"></div></div>`;
+   card.addEventListener('click',()=>flip(card));board.appendChild(card);
+ });
+ timer=setInterval(()=>{seconds++;document.getElementById('time').textContent=formatTime(seconds)},1000);
+}
+function formatTime(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function flip(card){
+ if(lock||card.classList.contains('flipped')||card.classList.contains('matched'))return;
+ card.classList.add('flipped');
+ if(!first){first=card;return}
+ second=card;lock=true;moves++;document.getElementById('moves').textContent=moves;
+ if(first.dataset.id===second.dataset.id){first.classList.add('matched');second.classList.add('matched');matches++;document.getElementById('pairs').textContent=matches+' / '+animals.length;first=second=null;lock=false;
+   if(matches===animals.length){clearInterval(timer);document.getElementById('message').textContent='🎉 Amazing! You found every pair in '+moves+' moves! 🏆'}
+ }else{setTimeout(()=>{first.classList.remove('flipped');second.classList.remove('flipped');first=second=null;lock=false},850)}
+}
+newGame();
+</script>
+</body>
+</html>

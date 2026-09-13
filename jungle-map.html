@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Jungle Map | Jungle Animal Stories</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Comic Sans MS',cursive;background:#0b3d20;color:#fff;min-height:100vh}
+.header{position:sticky;top:0;z-index:20;padding:14px 18px;text-align:center;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);box-shadow:0 3px 15px rgba(0,0,0,.35)}
+.header h1{margin:0;font-size:clamp(1.5rem,4vw,2.2rem);text-shadow:2px 2px 5px #000}
+.header p{margin:5px 0 10px}
+.home{display:inline-block;padding:9px 17px;border-radius:12px;background:#4caf50;color:#fff;text-decoration:none;font-weight:bold;box-shadow:2px 2px #2e7d32}
+.home:hover{background:#388e3c;transform:scale(1.03)}
+.map-wrap{max-width:1250px;margin:20px auto;padding:12px}
+.map{position:relative;min-height:920px;overflow:hidden;border:6px solid #6d4c41;border-radius:28px;background:linear-gradient(145deg,#8bc34a,#4caf50 45%,#2e7d32);box-shadow:0 15px 35px rgba(0,0,0,.4)}
+.map:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 20%,rgba(255,255,255,.12),transparent 25%),radial-gradient(circle at 80% 65%,rgba(255,255,255,.1),transparent 28%);pointer-events:none}
+.river{position:absolute;left:46%;top:-8%;width:10%;height:116%;background:#29b6f6;border:5px solid #0288d1;border-radius:50%;transform:rotate(9deg);box-shadow:inset 0 0 18px rgba(255,255,255,.45);opacity:.9;z-index:1}
+.river:after{content:"💧  RIVER  💧";position:absolute;top:45%;left:-18px;transform:rotate(81deg);font-weight:bold;text-shadow:1px 1px 2px #000;white-space:nowrap}
+.path{position:absolute;height:18px;background:#d7a86e;border:3px dashed #8d6338;border-radius:30px;opacity:.9;z-index:2}
+.path.p1{left:10%;top:31%;width:80%;transform:rotate(-6deg)}
+.path.p2{left:12%;top:61%;width:76%;transform:rotate(7deg)}
+.path.p3{left:20%;top:78%;width:60%;transform:rotate(-5deg)}
+.zone{position:absolute;width:145px;min-height:110px;padding:9px 7px;border:3px solid rgba(255,255,255,.9);border-radius:20px;background:rgba(0,0,0,.38);color:#fff;text-align:center;cursor:pointer;transition:.22s;box-shadow:0 7px 15px rgba(0,0,0,.3);z-index:5;font-family:inherit}
+.zone:hover,.zone.active{transform:scale(1.08);background:rgba(0,0,0,.62);box-shadow:0 0 0 4px rgba(255,235,59,.55),0 12px 25px rgba(0,0,0,.4)}
+.zone .emoji{display:block;font-size:2.35em;line-height:1.05}
+.zone strong{display:block;font-size:.98em;margin-top:3px}
+.zone small{display:block;margin-top:2px;font-size:.78em}
+/* 28 animal zones */
+.z1{left:2%;top:4%}.z2{left:20%;top:3%}.z3{left:39%;top:4%}.z4{left:58%;top:3%}.z5{right:2%;top:4%}
+.z6{left:10%;top:17%}.z7{left:29%;top:17%}.z8{left:49%;top:17%}.z9{right:10%;top:17%}
+.z10{left:2%;top:31%}.z11{left:20%;top:31%}.z12{left:39%;top:31%}.z13{left:58%;top:31%}.z14{right:2%;top:31%}
+.z15{left:10%;top:47%}.z16{left:29%;top:47%}.z17{left:49%;top:47%}.z18{right:10%;top:47%}
+.z19{left:2%;top:63%}.z20{left:20%;top:63%}.z21{left:39%;top:63%}.z22{left:58%;top:63%}.z23{right:2%;top:63%}
+.z24{left:10%;top:79%}.z25{left:29%;top:79%}.z26{left:49%;top:79%}.z27{left:68%;top:79%}.z28{right:2%;top:79%}
+.legend{margin:16px auto;max-width:1100px;padding:14px 18px;background:rgba(0,0,0,.45);border-radius:18px;text-align:center}
+.panel{display:none;max-width:850px;margin:18px auto 30px;padding:22px;background:rgba(255,255,255,.96);color:#173b20;border-radius:22px;box-shadow:0 10px 25px rgba(0,0,0,.35);text-align:center;animation:pop .3s ease}
+.panel.show{display:block}.panel h2{margin:0 0 8px;color:#1b5e20}.animal-big{font-size:4em}.panel p{font-family:Arial,sans-serif;line-height:1.6;font-size:1.05em}.story-link{display:inline-block;margin-top:8px;padding:11px 20px;background:#4caf50;color:white;text-decoration:none;border-radius:12px;font-weight:bold;box-shadow:2px 2px #2e7d32}.story-link:hover{background:#388e3c}
+.tip{font-size:.95em;color:#e8f5e9}
+@keyframes pop{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:1050px){.map{min-height:1120px}.zone{width:125px;min-height:100px}.z1{left:1%}.z2{left:19%}.z3{left:38%}.z4{left:57%}.z5{right:1%}.z6{left:9%}.z7{left:28%}.z8{left:47%}.z9{right:9%}.z10{left:1%}.z11{left:19%}.z12{left:38%}.z13{left:57%}.z14{right:1%}.z15{left:9%}.z16{left:28%}.z17{left:47%}.z18{right:9%}.z19{left:1%}.z20{left:19%}.z21{left:38%}.z22{left:57%}.z23{right:1%}.z24{left:9%}.z25{left:28%}.z26{left:47%}.z27{left:66%}.z28{right:1%}}
+@media(max-width:700px){.header h1{font-size:1.35em}.header p{font-size:.9em}.map{min-height:1850px;border-width:4px}.river{left:43%;width:14%}.path{display:none}.zone{width:108px;min-height:92px;padding:7px 5px;border-width:2px}.zone .emoji{font-size:1.75em}.zone strong{font-size:.78em}.zone small{font-size:.63em}
+.z1{left:1%;top:2%}.z2{left:calc(50% - 54px);top:2%}.z3{right:1%;left:auto;top:2%}
+.z4{left:1%;top:11%}.z5{left:calc(50% - 54px);top:11%}.z6{right:1%;left:auto;top:11%}
+.z7{left:1%;top:20%}.z8{left:calc(50% - 54px);top:20%}.z9{right:1%;left:auto;top:20%}
+.z10{left:1%;top:29%}.z11{left:calc(50% - 54px);top:29%}.z12{right:1%;left:auto;top:29%}
+.z13{left:1%;top:38%}.z14{left:calc(50% - 54px);top:38%}.z15{right:1%;left:auto;top:38%}
+.z16{left:1%;top:47%}.z17{left:calc(50% - 54px);top:47%}.z18{right:1%;left:auto;top:47%}
+.z19{left:1%;top:56%}.z20{left:calc(50% - 54px);top:56%}.z21{right:1%;left:auto;top:56%}
+.z22{left:1%;top:65%}.z23{left:calc(50% - 54px);top:65%}.z24{right:1%;left:auto;top:65%}
+.z25{left:1%;top:74%}.z26{left:calc(50% - 54px);top:74%}.z27{right:1%;left:auto;top:74%}
+.z28{left:calc(50% - 54px);top:83%}}
+@media(max-width:380px){.zone{width:94px;min-height:86px}.z2,.z5,.z8,.z11,.z14,.z17,.z20,.z23,.z26,.z28{left:calc(50% - 47px)}.animal-big{font-size:3.2em}}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🗺️ Interactive Jungle Map</h1>
+  <p>Explore all the animals in the Jungle Animal Stories collection!</p>
+  <a class="home" href="index.html">⬅ Back to Jungle Stories</a>
+</div>
+
+<div class="map-wrap">
+<div class="map" id="jungleMap">
+<div class="river"></div><div class="path p1"></div><div class="path p2"></div><div class="path p3"></div>
+
+<button class="zone z1" onclick="showZone(this,'🐘','Elephant Valley','Meet Gajraj in The Wise Elephant.','elephant')"><span class="emoji">🐘</span><strong>Elephant Valley</strong><small>Wisdom</small></button>
+<button class="zone z2" onclick="showZone(this,'🐇','Rabbit Meadow','Meet Remy, the Brave Little Rabbit.','rabbit')"><span class="emoji">🐇</span><strong>Rabbit Meadow</strong><small>Courage</small></button>
+<button class="zone z3" onclick="showZone(this,'🦜','Parrot Garden','Meet the singing and honest parrots.','parrot')"><span class="emoji">🦜</span><strong>Parrot Garden</strong><small>Friendship</small></button>
+<button class="zone z4" onclick="showZone(this,'🐯','Tiger Forest','Meet Tara, the Lost Tiger Cub.','tiger')"><span class="emoji">🐯</span><strong>Tiger Forest</strong><small>Adventure</small></button>
+<button class="zone z5" onclick="showZone(this,'🐒','Monkey Mountain','Meet the clever and helpful monkeys.','monkey')"><span class="emoji">🐒</span><strong>Monkey Mountain</strong><small>Intelligence</small></button>
+<button class="zone z6" onclick="showZone(this,'🦎','Chameleon Grove','Meet Cammy, the Shy Chameleon.','chameleon')"><span class="emoji">🦎</span><strong>Chameleon Grove</strong><small>Quiet Courage</small></button>
+<button class="zone z7" onclick="showZone(this,'🦌','Deer Clearing','Meet the Honest Deer.','deer')"><span class="emoji">🦌</span><strong>Deer Clearing</strong><small>Honesty</small></button>
+<button class="zone z8" onclick="showZone(this,'🐻','Bear Woods','Meet Bruno, the Helpful Bear.','bear')"><span class="emoji">🐻</span><strong>Bear Woods</strong><small>Kindness</small></button>
+<button class="zone z9" onclick="showZone(this,'🦚','Peacock Garden','Meet Raja, the Proud Peacock.','peacock')"><span class="emoji">🦚</span><strong>Peacock Garden</strong><small>Humility</small></button>
+<button class="zone z10" onclick="showZone(this,'🐢','Tortoise Lake','Meet Tinku, the Patient Tortoise.','tortoise')"><span class="emoji">🐢</span><strong>Tortoise Lake</strong><small>Patience</small></button>
+<button class="zone z11" onclick="showZone(this,'🦊','Fox Forest','Meet the kind and clever foxes.','fox')"><span class="emoji">🦊</span><strong>Fox Forest</strong><small>Kindness</small></button>
+<button class="zone z12" onclick="showZone(this,'🦁','Lion Kingdom','Meet Sheru and the clever rabbit.','lionrabbit')"><span class="emoji">🦁</span><strong>Lion Kingdom</strong><small>Leadership</small></button>
+<button class="zone z13" onclick="showZone(this,'🐦','Crow Tree','Meet the Crow and the Snake.','crowsnake')"><span class="emoji">🐦</span><strong>Crow Tree</strong><small>Wisdom</small></button>
+<button class="zone z14" onclick="showZone(this,'🐍','Snake River','Meet Sia in The Wise Snake.','wisesnake')"><span class="emoji">🐍</span><strong>Snake River</strong><small>Smart Thinking</small></button>
+<button class="zone z15" onclick="showZone(this,'🫏','Donkey Farm','Meet the Foolish Donkey.','donkey')"><span class="emoji">🫏</span><strong>Donkey Farm</strong><small>Wise Advice</small></button>
+<button class="zone z16" onclick="showZone(this,'🦢','Swan Lake','Meet the Two Swans and the Turtle.','swanturtle')"><span class="emoji">🦢</span><strong>Swan Lake</strong><small>Self-Control</small></button>
+<button class="zone z17" onclick="showZone(this,'🐺','Jackal Hills','Meet the Blue Jackal.','bluejackal')"><span class="emoji">🐺</span><strong>Jackal Hills</strong><small>Truth</small></button>
+<button class="zone z18" onclick="showZone(this,'🦉','Owl Tree','Meet Ojas, the Wise Owl.','owl')"><span class="emoji">🦉</span><strong>Owl Tree</strong><small>Wisdom</small></button>
+<button class="zone z19" onclick="showZone(this,'🦓','Zebra Plains','Meet Zara, the Helpful Zebra.','zebra')"><span class="emoji">🦓</span><strong>Zebra Plains</strong><small>Helping</small></button>
+<button class="zone z20" onclick="showZone(this,'🐺','Wolf Valley','Meet Waldo, the Honest Wolf.','wolf')"><span class="emoji">🐺</span><strong>Wolf Valley</strong><small>Honesty</small></button>
+<button class="zone z21" onclick="showZone(this,'🦘','Kangaroo Grove','Meet Kiki, the Caring Kangaroo.','kangaroo')"><span class="emoji">🦘</span><strong>Kangaroo Grove</strong><small>Caring</small></button>
+<button class="zone z22" onclick="showZone(this,'🦔','Hedgehog Hills','Meet Harry, the Brave Hedgehog.','hedgehog')"><span class="emoji">🦔</span><strong>Hedgehog Hills</strong><small>Courage</small></button>
+<button class="zone z23" onclick="showZone(this,'🦒','Giraffe Heights','Meet Gina, the Gentle Giraffe.','giraffe')"><span class="emoji">🦒</span><strong>Giraffe Heights</strong><small>Helping</small></button>
+<button class="zone z24" onclick="showZone(this,'🦛','Hippo River','Meet Henry, the Friendly Hippopotamus.','hippo')"><span class="emoji">🦛</span><strong>Hippo River</strong><small>Peace</small></button>
+<button class="zone z25" onclick="showZone(this,'🦏','Rhino Trail','Meet Rocky, the Brave Rhinoceros.','rhino')"><span class="emoji">🦏</span><strong>Rhino Trail</strong><small>Teamwork</small></button>
+<button class="zone z26" onclick="showZone(this,'🐨','Koala Trees','Meet Kelly, the Caring Koala.','koala')"><span class="emoji">🐨</span><strong>Koala Trees</strong><small>Kindness</small></button>
+<button class="zone z27" onclick="showZone(this,'🐼','Bamboo Forest','Meet Peter, the Honest Panda.','panda')"><span class="emoji">🐼</span><strong>Bamboo Forest</strong><small>Honesty</small></button>
+<button class="zone z28" onclick="showZone(this,'🐊','Crocodile Lake','Meet the Helpful Crocodile.','helpfulcrocodile')"><span class="emoji">🐊</span><strong>Crocodile Lake</strong><small>River Adventure</small></button>
+</div>
+</div>
+
+<div class="legend">🌿 <strong>Jungle Explorer Tip:</strong> Click any animal zone to open its story. <span class="tip">Explore every zone!</span></div>
+
+<div class="panel" id="infoPanel">
+<div class="animal-big" id="animalEmoji">🌿</div>
+<h2 id="zoneTitle">Choose a zone</h2>
+<p id="zoneDescription">Click any animal zone on the map to discover its story.</p>
+<a class="story-link" id="openStory" href="index.html">📖 Open This Animal Story</a>
+</div>
+
+<script>
+function showZone(button,emoji,title,description,storyId){
+  document.querySelectorAll('.zone').forEach(z=>z.classList.remove('active'));
+  button.classList.add('active');
+  document.getElementById('animalEmoji').textContent=emoji;
+  document.getElementById('zoneTitle').textContent=title;
+  document.getElementById('zoneDescription').textContent=description;
+  document.getElementById('openStory').href='index.html?story='+encodeURIComponent(storyId);
+  const panel=document.getElementById('infoPanel');
+  panel.classList.add('show');
+  panel.scrollIntoView({behavior:'smooth',block:'center'});
+}
+</script>
+</body>
+</html>
