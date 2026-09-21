@@ -1,0 +1,403 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jungle Maze Adventure</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 18px;
+  font-family: "Comic Sans MS", cursive;
+  text-align: center;
+  color: white;
+  background: linear-gradient(135deg, #1b5e20, #81c784);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 750px;
+  margin: 15px auto;
+  padding: 22px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 24px;
+}
+
+h1 {
+  font-size: clamp(27px, 6vw, 42px);
+  margin: 8px 0;
+}
+
+p {
+  line-height: 1.5;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 15px 0;
+}
+
+.stat {
+  background: #fff;
+  color: #1b5e20;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-weight: bold;
+}
+
+#message {
+  min-height: 28px;
+  font-weight: bold;
+  color: #ffeb3b;
+}
+
+#maze {
+  display: grid;
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+  gap: 3px;
+  width: min(100%, 440px);
+  margin: 20px auto;
+  padding: 8px;
+  background: #163d20;
+  border-radius: 14px;
+}
+
+.cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  font-size: clamp(14px, 4vw, 27px);
+  overflow: hidden;
+  user-select: none;
+}
+
+.wall {
+  background: #526b3c;
+}
+
+.path {
+  background: #e5d8a8;
+}
+
+.player {
+  background: #ffcc80;
+}
+
+.goal {
+  background: #a5d6a7;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(3, 65px);
+  justify-content: center;
+  gap: 8px;
+  margin: 15px auto;
+}
+
+.controls button {
+  height: 58px;
+  font-size: 25px;
+  border: 0;
+  border-radius: 13px;
+  background: #ffca28;
+  cursor: pointer;
+  box-shadow: 0 4px #e65100;
+  touch-action: manipulation;
+}
+
+.controls button:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+button, a {
+  font-family: inherit;
+}
+
+.action-btn {
+  display: inline-block;
+  margin: 6px;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 12px;
+  background: #ff9800;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  background: #f57c00;
+}
+
+.help {
+  font-size: 14px;
+  color: #f1f8e9;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>🌿 Jungle Maze Adventure 🐯</h1>
+
+  <p>
+    Help the little explorer find the lost jungle animal!
+    Navigate through the maze and reach the animal to win.
+  </p>
+
+  <div class="stats">
+    <div class="stat">
+      🏆 Level: <span id="level">1</span>
+    </div>
+    <div class="stat">
+      👣 Moves: <span id="moves">0</span>
+    </div>
+  </div>
+
+  <p id="message" role="status" aria-live="polite">
+    Find your way through the jungle!
+  </p>
+
+  <div id="maze"
+       role="grid"
+       aria-label="Jungle maze"></div>
+
+  <div class="controls" aria-label="Movement controls">
+    <span></span>
+    <button onclick="move(0,-1)" aria-label="Move up">⬆️</button>
+    <span></span>
+
+    <button onclick="move(-1,0)" aria-label="Move left">⬅️</button>
+    <button onclick="move(0,1)" aria-label="Move down">⬇️</button>
+    <button onclick="move(1,0)" aria-label="Move right">➡️</button>
+  </div>
+
+  <p class="help">
+    Use the arrow buttons or your keyboard arrow keys.
+  </p>
+
+  <button class="action-btn" onclick="restartLevel()">
+    🔄 Restart Level
+  </button>
+
+  <button class="action-btn" onclick="nextLevel()">
+    ⏭️ Next Level
+  </button>
+
+  <br>
+
+  <a class="action-btn" href="special-games.html">
+    🎮 All Games
+  </a>
+
+  <a class="action-btn" href="index.html">
+    🏡 Jungle Home
+  </a>
+
+</div>
+
+<script>
+const SIZE = 11;
+
+const levels = [
+[
+"###########",
+"#P#.......#",
+"#.#.#####.#",
+"#...#.....#",
+"###.#.###.#",
+"#...#.#...#",
+"#.###.#.###",
+"#.....#...#",
+"#.#####.#.#",
+"#.......#G#",
+"###########"
+],
+[
+"###########",
+"#P........#",
+"#.#######.#",
+"#.......#.#",
+"#######.#.#",
+"#.....#.#.#",
+"#.###.#.#.#",
+"#.#...#...#",
+"#.#.#####.#",
+"#.........G",
+"###########"
+],
+[
+"###########",
+"#P#.......#",
+"#.#.#####.#",
+"#.#.....#.#",
+"#.#####.#.#",
+"#.....#.#.#",
+"#####.#.#.#",
+"#.....#...#",
+"#.#######.#",
+"#.........G",
+"###########"
+]
+];
+
+let level = 0;
+let player = {x: 1, y: 1};
+let moves = 0;
+let map = [];
+let won = false;
+
+function loadLevel() {
+  const source = levels[level % levels.length];
+
+  map = source.map(row => row.split(""));
+  player = {x: 1, y: 1};
+  moves = 0;
+  won = false;
+
+  document.getElementById("level").textContent =
+    level + 1;
+
+  document.getElementById("moves").textContent = moves;
+
+  document.getElementById("message").textContent =
+    "Find your way through the jungle!";
+
+  render();
+}
+
+function render() {
+  const maze = document.getElementById("maze");
+  maze.innerHTML = "";
+
+  for (let y = 0; y < SIZE; y++) {
+    for (let x = 0; x < SIZE; x++) {
+      const cell = document.createElement("div");
+      const value = map[y][x];
+
+      cell.className = "cell";
+
+      if (value === "#") {
+        cell.classList.add("wall");
+        cell.textContent = "🌳";
+      } else {
+        cell.classList.add("path");
+
+        if (value === "G") {
+          cell.classList.add("goal");
+          cell.textContent = "🐯";
+        }
+      }
+
+      if (player.x === x && player.y === y) {
+        cell.classList.add("player");
+        cell.textContent = "🧭";
+      }
+
+      cell.setAttribute("role", "gridcell");
+      maze.appendChild(cell);
+    }
+  }
+}
+
+function move(dx, dy) {
+  if (won) return;
+
+  const nx = player.x + dx;
+  const ny = player.y + dy;
+
+  if (
+    nx < 0 || nx >= SIZE ||
+    ny < 0 || ny >= SIZE ||
+    map[ny][nx] === "#"
+  ) {
+    document.getElementById("message").textContent =
+      "🌳 A tree is blocking your way!";
+    return;
+  }
+
+  player.x = nx;
+  player.y = ny;
+
+  moves++;
+
+  document.getElementById("moves").textContent = moves;
+
+  if (map[ny][nx] === "G") {
+    won = true;
+
+    document.getElementById("message").textContent =
+      "🎉 Amazing! You rescued the tiger!";
+
+    document.getElementById("message").style.color =
+      "#b9f6ca";
+
+  } else {
+    document.getElementById("message").textContent =
+      "Keep going, jungle explorer!";
+  }
+
+  render();
+}
+
+document.addEventListener("keydown", function(event) {
+  const keys = {
+    ArrowUp: [0, -1],
+    ArrowDown: [0, 1],
+    ArrowLeft: [-1, 0],
+    ArrowRight: [1, 0]
+  };
+
+  if (keys[event.key]) {
+    event.preventDefault();
+
+    const [dx, dy] = keys[event.key];
+    move(dx, dy);
+  }
+});
+
+function restartLevel() {
+  loadLevel();
+}
+
+function nextLevel() {
+  level++;
+
+  if (level >= levels.length) {
+    level = 0;
+
+    document.getElementById("message").textContent =
+      "🏆 All levels completed! Starting again!";
+  }
+
+  loadLevel();
+}
+
+loadLevel();
+</script>
+
+</body>
+</html>
