@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animal Sound Guessing Game</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background:
+            linear-gradient(rgba(20, 70, 35, 0.75), rgba(10, 45, 25, 0.85)),
+            url("jungleanimals.png") center/cover fixed;
+        color: white;
+        min-height: 100vh;
+    }
+
+    header {
+        text-align: center;
+        padding: 25px 15px;
+    }
+
+    header h1 {
+        font-size: 42px;
+        margin: 5px 0;
+        text-shadow: 3px 3px 5px #000;
+    }
+
+    header p {
+        font-size: 18px;
+        margin: 8px 0;
+    }
+
+    .game-container {
+        width: 92%;
+        max-width: 900px;
+        margin: auto;
+        background: rgba(0, 0, 0, 0.65);
+        border-radius: 25px;
+        padding: 25px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .score-board {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+
+    .score-box {
+        background: rgba(255,255,255,0.15);
+        padding: 12px 25px;
+        border-radius: 15px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .sound-button {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        border: 6px solid white;
+        background: #2e8b57;
+        color: white;
+        font-size: 75px;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        transition: transform 0.2s, background 0.2s;
+        margin: 15px;
+    }
+
+    .sound-button:hover {
+        transform: scale(1.08);
+        background: #3ca66b;
+    }
+
+    .sound-button:active {
+        transform: scale(0.95);
+    }
+
+    #question {
+        font-size: 25px;
+        margin: 15px;
+    }
+
+    .choices {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin: 25px auto;
+        max-width: 650px;
+    }
+
+    .choice {
+        border: 3px solid white;
+        border-radius: 18px;
+        background: rgba(255,255,255,0.12);
+        color: white;
+        padding: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .choice:hover {
+        background: rgba(255,255,255,0.3);
+        transform: translateY(-3px);
+    }
+
+    .choice img {
+        width: 100px;
+        height: 80px;
+        object-fit: contain;
+        display: block;
+        margin: auto;
+    }
+
+    #message {
+        min-height: 35px;
+        font-size: 23px;
+        font-weight: bold;
+        margin: 15px;
+    }
+
+    .correct {
+        background: #238b45 !important;
+    }
+
+    .wrong {
+        background: #a83232 !important;
+    }
+
+    .control-buttons {
+        margin-top: 20px;
+    }
+
+    .control-button {
+        border: none;
+        border-radius: 12px;
+        padding: 12px 20px;
+        margin: 5px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    #nextButton {
+        background: #f4c542;
+        color: #222;
+    }
+
+    #restartButton {
+        background: #e8e8e8;
+        color: #222;
+    }
+
+    .home-button {
+        display: inline-block;
+        margin-top: 25px;
+        padding: 13px 25px;
+        background: #145a32;
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: bold;
+        border: 2px solid white;
+    }
+
+    .home-button:hover {
+        background: #1e8449;
+    }
+
+    #gameOver {
+        display: none;
+    }
+
+    #finalScore {
+        font-size: 30px;
+        margin: 20px;
+    }
+
+    .instructions {
+        background: rgba(255,255,255,0.1);
+        border-radius: 15px;
+        padding: 15px;
+        margin: 20px auto;
+        max-width: 700px;
+        font-size: 17px;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 600px) {
+
+        header h1 {
+            font-size: 30px;
+        }
+
+        .choices {
+            grid-template-columns: 1fr;
+        }
+
+        .sound-button {
+            width: 140px;
+            height: 140px;
+            font-size: 55px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🐾 Animal Sound Guessing Game 🔊</h1>
+    <p>Listen carefully and guess the animal!</p>
+</header>
+
+<div class="game-container">
+
+    <div class="score-board">
+        <div class="score-box">
+            ⭐ Score: <span id="score">0</span>
+        </div>
+
+        <div class="score-box">
+            ❤️ Lives: <span id="lives">3</span>
+        </div>
+
+        <div class="score-box">
+            🐾 Question: <span id="questionNumber">1</span>/10
+        </div>
+    </div>
+
+    <div class="instructions">
+        <strong>How to Play:</strong><br>
+        🔊 Press the big button to hear an animal sound.<br>
+        🐾 Choose the animal that makes that sound.<br>
+        ⭐ Get 10 points for every correct answer!
+    </div>
+
+    <div id="gameArea">
+
+        <div id="question">
+            Which animal makes this sound?
+        </div>
+
+        <button class="sound-button" onclick="playSound()" title="Play Animal Sound">
+            🔊
+        </button>
+
+        <div id="message"></div>
+
+        <div class="choices" id="choices"></div>
+
+        <div class="control-buttons">
+            <button class="control-button" id="nextButton" onclick="nextQuestion()" style="display:none;">
+                ➡️ Next Animal
+            </button>
+        </div>
+
+    </div>
+
+    <div id="gameOver">
+
+        <h2>🎉 Game Complete! 🎉</h2>
+
+        <div id="finalScore"></div>
+
+        <p id="finalMessage"></p>
+
+        <button class="control-button" id="restartButton" onclick="restartGame()">
+            🔄 Play Again
+        </button>
+
+    </div>
+
+    <a href="special-games.html" class="home-button">
+        🎮 Back to Special Games
+    </a>
+
+    <br>
+
+    <a href="index.html" class="home-button">
+        🏠 Back to Jungle Home
+    </a>
+
+</div>
+
+
+<script>
+
+/* ==========================================
+   ANIMAL DATA
+   ========================================== */
+
+const animals = [
+
+    {
+        name: "Elephant",
+        image: "elephant.png",
+        sound: "elephant sound.mp3"
+    },
+
+    {
+        name: "Rabbit",
+        image: "rabbit.png",
+        sound: "rabbit sound.mp3"
+    },
+
+    {
+        name: "Parrot",
+        image: "parrot.png",
+        sound: "bird sound.mp3"
+    },
+
+    {
+        name: "Tiger",
+        image: "tigercub.png",
+        sound: "tiger sound.mp3"
+    },
+
+    {
+        name: "Monkey",
+        image: "monkey.png",
+        sound: "monkey sound.mp3"
+    },
+
+    {
+        name: "Deer",
+        image: "deer.png",
+        sound: "deer sound.mp3"
+    },
+
+    {
+        name: "Bear",
+        image: "bear.png",
+        sound: "bear sound.mp3"
+    },
+
+    {
+        name: "Peacock",
+        image: "peacock.png",
+        sound: "peacock sound.mp3"
+    },
+
+    {
+        name: "Fox",
+        image: "fox.png",
+        sound: "fox sound.mp3"
+    },
+
+    {
+        name: "Wolf",
+        image: "wolf.png",
+        sound: "wolf sound.mp3"
+    }
+
+];
+
+
+/* ==========================================
+   GAME VARIABLES
+   ========================================== */
+
+let questions = [];
+let currentQuestion = 0;
+let score = 0;
+let lives = 3;
+let answered = false;
+let currentAudio = null;
+
+
+/* ==========================================
+   SHUFFLE FUNCTION
+   ========================================== */
+
+function shuffle(array) {
+
+    let shuffled = [...array];
+
+    for (let i = shuffled.length - 1; i > 0; i--) {
+
+        let j = Math.floor(Math.random() * (i + 1));
+
+        [shuffled[i], shuffled[j]] =
+        [shuffled[j], shuffled[i]];
+
+    }
+
+    return shuffled;
+}
+
+
+/* ==========================================
+   START GAME
+   ========================================== */
+
+function startGame() {
+
+    questions = shuffle(animals);
+
+    currentQuestion = 0;
+    score = 0;
+    lives = 3;
+
+    document.getElementById("score").textContent = score;
+    document.getElementById("lives").textContent = lives;
+
+    document.getElementById("gameArea").style.display = "block";
+    document.getElementById("gameOver").style.display = "none";
+
+    loadQuestion();
+}
+
+
+/* ==========================================
+   LOAD QUESTION
+   ========================================== */
+
+function loadQuestion() {
+
+    answered = false;
+
+    stopSound();
+
+    document.getElementById("message").textContent = "";
+
+    document.getElementById("nextButton").style.display = "none";
+
+    document.getElementById("questionNumber").textContent =
+        currentQuestion + 1;
+
+    let correctAnimal = questions[currentQuestion];
+
+    let choices = generateChoices(correctAnimal);
+
+    let choicesContainer =
+        document.getElementById("choices");
+
+    choicesContainer.innerHTML = "";
+
+    choices.forEach(animal => {
+
+        let button = document.createElement("button");
+
+        button.className = "choice";
+
+        button.innerHTML = `
+            <img src="${animal.image}"
+                 alt="${animal.name}"
+                 onerror="this.style.display='none'">
+
+            🐾 ${animal.name}
+        `;
+
+        button.onclick = function() {
+
+            checkAnswer(animal.name, button);
+
+        };
+
+        choicesContainer.appendChild(button);
+
+    });
+
+    setTimeout(() => {
+
+        playSound();
+
+    }, 500);
+}
+
+
+/* ==========================================
+   GENERATE ANSWER CHOICES
+   ========================================== */
+
+function generateChoices(correctAnimal) {
+
+    let wrongAnimals =
+        animals.filter(animal =>
+            animal.name !== correctAnimal.name
+        );
+
+    wrongAnimals = shuffle(wrongAnimals).slice(0, 3);
+
+    return shuffle([
+        correctAnimal,
+        ...wrongAnimals
+    ]);
+}
+
+
+/* ==========================================
+   PLAY SOUND
+   ========================================== */
+
+function playSound() {
+
+    stopSound();
+
+    let animal = questions[currentQuestion];
+
+    currentAudio = new Audio(animal.sound);
+
+    currentAudio.play().catch(() => {
+
+        document.getElementById("message").textContent =
+            "🔊 Sound file could not be played. Check the animal sound file name.";
+
+    });
+}
+
+
+/* ==========================================
+   STOP SOUND
+   ========================================== */
+
+function stopSound() {
+
+    if (currentAudio) {
+
+        currentAudio.pause();
+
+        currentAudio.currentTime = 0;
+
+        currentAudio = null;
+    }
+}
+
+
+/* ==========================================
+   CHECK ANSWER
+   ========================================== */
+
+function checkAnswer(selectedAnimal, button) {
+
+    if (answered) {
+        return;
+    }
+
+    answered = true;
+
+    let correctAnimal = questions[currentQuestion];
+
+    let allButtons =
+        document.querySelectorAll(".choice");
+
+    allButtons.forEach(btn => {
+
+        btn.disabled = true;
+
+    });
+
+
+    if (selectedAnimal === correctAnimal.name) {
+
+        score += 10;
+
+        document.getElementById("score").textContent = score;
+
+        button.classList.add("correct");
+
+        document.getElementById("message").innerHTML =
+            "🎉 Correct! Great job! ⭐";
+
+    }
+
+    else {
+
+        lives--;
+
+        document.getElementById("lives").textContent = lives;
+
+        button.classList.add("wrong");
+
+        document.getElementById("message").innerHTML =
+            "❌ Oops! The correct animal is <strong>" +
+            correctAnimal.name +
+            "</strong>.";
+
+        allButtons.forEach(btn => {
+
+            if (btn.textContent.includes(correctAnimal.name)) {
+
+                btn.classList.add("correct");
+
+            }
+
+        });
+
+    }
+
+
+    document.getElementById("nextButton").style.display =
+        "inline-block";
+}
+
+
+/* ==========================================
+   NEXT QUESTION
+   ========================================== */
+
+function nextQuestion() {
+
+    stopSound();
+
+    if (lives <= 0) {
+
+        endGame();
+
+        return;
+    }
+
+    currentQuestion++;
+
+    if (currentQuestion >= questions.length) {
+
+        endGame();
+
+        return;
+    }
+
+    loadQuestion();
+}
+
+
+/* ==========================================
+   END GAME
+   ========================================== */
+
+function endGame() {
+
+    stopSound();
+
+    document.getElementById("gameArea").style.display =
+        "none";
+
+    document.getElementById("gameOver").style.display =
+        "block";
+
+    document.getElementById("finalScore").textContent =
+        "⭐ Your Score: " + score + " / 100";
+
+
+    let message = "";
+
+    if (score === 100) {
+
+        message =
+            "🏆 Amazing! You are an Animal Sound Champion!";
+
+    }
+
+    else if (score >= 70) {
+
+        message =
+            "🌟 Excellent work! You know many animal sounds!";
+
+    }
+
+    else if (score >= 40) {
+
+        message =
+            "👏 Good job! Keep learning about animals!";
+
+    }
+
+    else {
+
+        message =
+            "🐾 Nice try! Play again and learn more animal sounds!";
+
+    }
+
+    document.getElementById("finalMessage").textContent =
+        message;
+}
+
+
+/* ==========================================
+   RESTART GAME
+   ========================================== */
+
+function restartGame() {
+
+    startGame();
+
+}
+
+
+/* ==========================================
+   START
+   ========================================== */
+
+startGame();
+
+</script>
+
+</body>
+</html>
