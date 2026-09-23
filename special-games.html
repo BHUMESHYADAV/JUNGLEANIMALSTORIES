@@ -15,6 +15,15 @@ h1{font-size:3em;text-shadow:2px 2px 6px #000;margin-bottom:10px}.subtitle{font-
 .play-btn:hover,.home-btn:hover{background:#388E3C}.home-btn{margin-top:30px;background:#ff9800;box-shadow:2px 2px #e65100}.home-btn:hover{background:#f57c00}
 .badge{display:inline-block;background:#fff3cd;color:#6d4c00;padding:8px 14px;border-radius:20px;margin:4px;font-weight:bold}
 @media(max-width:600px){h1{font-size:2.2em}.games-wrap{padding:20px}}
+</style><style>
+.zone-tools{background:rgba(255,255,255,.95);color:#222;border-radius:20px;padding:18px;margin:20px 0}
+.zone-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.zstat{background:#e8f5e9;border-radius:14px;padding:10px;font-weight:bold}.zstat b{display:block;font-size:1.4em;color:#1b5e20}
+.zone-buttons{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px}
+.zone-btn{border:0;border-radius:12px;padding:10px 14px;background:#ff9800;color:#fff;font-weight:bold;cursor:pointer}
+.zone-badges{margin-top:14px}.zbadge{display:inline-block;padding:7px 11px;margin:3px;border-radius:18px;background:#ddd;color:#666}.zbadge.on{background:#fff3cd;color:#6d4c00}
+.zone-fact{margin-top:14px;padding:12px;background:#f1f8e9;border-radius:14px}.zbar{height:14px;background:#ddd;border-radius:15px;overflow:hidden;margin-top:8px}.zbar i{display:block;height:100%;width:0;background:#4caf50}
+body.zone-night{background:linear-gradient(135deg,#071b12,#173b2a)!important}
 </style>
 </head>
 <body>
@@ -24,7 +33,25 @@ h1{font-size:3em;text-shadow:2px 2px 6px #000;margin-bottom:10px}.subtitle{font-
 <div>
 <span class="badge">🧠 Brain Games</span><span class="badge">🐾 Animal Games</span><span class="badge">🏆 Challenges</span>
 </div><br>
-<div class="games">
+<div class="zone-tools">
+<h2 style="color:#1b5e20;margin-top:0">🏆 Jungle Games Dashboard</h2>
+<div class="zone-stats">
+<div class="zstat">⭐ Points<b id="zPoints">0</b></div>
+<div class="zstat">🏅 Level<b id="zLevel">1</b></div>
+<div class="zstat">❤️ Lives<b id="zLives">5</b></div>
+<div class="zstat">🎮 Games Played<b id="zPlayed">0</b></div>
+<div class="zstat">🐾 Discoveries<b id="zAnimals">0</b></div>
+</div>
+<div class="zone-buttons">
+<button class="zone-btn" onclick="zDaily()">🎯 Daily Challenge</button>
+<button class="zone-btn" onclick="zNight()">🌙 Day/Night</button>
+<button class="zone-btn" onclick="zSound()">🔊 Sound: <span id="zSound">ON</span></button>
+<button class="zone-btn" onclick="zDifficulty()">⚡ Difficulty: <span id="zDiff">Easy</span></button>
+<button class="zone-btn" onclick="zReset()">♻️ Reset Progress</button>
+</div>
+<div class="zone-fact"><b>🦁 Animal of the Day:</b> <span id="zAnimal"></span><br><span id="zFact"></span></div>
+<div class="zone-badges"><b>🏆 Achievements</b><div id="zBadges"></div><div class="zbar"><i id="zBar"></i></div><small id="zProgress"></small></div>
+</div><div class="games">
 <div class="game-card"><div class="game-icon">🎯</div><h2>Animal Matching Game</h2><p>Match the correct animal images and test your jungle knowledge.</p><a class="play-btn" href="animal-matching-game.html">▶ Play Game</a></div>
 <div class="game-card"><div class="game-icon">🃏</div><h2>Animal Memory Game</h2><p>Find matching animal pairs and challenge your memory.</p><a class="play-btn" href="animal-memory-game.html">▶ Play Game</a></div>
 <div class="game-card"><div class="game-icon">🔊</div><h2>Animal Sound Guessing Game</h2><p>Listen to the animal sound and guess which animal made it!</p><a class="play-btn" href="animal-sound-game.html">🔊 Play Sound Game</a></div>
@@ -38,5 +65,26 @@ h1{font-size:3em;text-shadow:2px 2px 6px #000;margin-bottom:10px}.subtitle{font-
 </div>
 <a class="home-btn" href="index.html">⬅ Back to Jungle Home</a>
 </div>
-</body>
+<script>
+(function(){
+const K="jungleZoneFeatures";
+let s=JSON.parse(localStorage.getItem(K)||"null")||{points:0,played:0,animals:0,lives:5,diff:0,sound:true,night:false,daily:false};
+const facts=[["🐘 Elephant","Elephants are the largest land animals."],["🦁 Lion","Lions live in groups called prides."],["🐯 Tiger","Tigers are the largest members of the cat family."],["🦒 Giraffe","Giraffes use their long necks to reach high leaves."],["🐼 Panda","Giant pandas mainly eat bamboo."],["🦓 Zebra","Every zebra has a unique stripe pattern."]];
+function save(){localStorage.setItem(K,JSON.stringify(s));draw()}
+function draw(){
+zPoints.textContent=s.points;zLevel.textContent=Math.floor(s.points/100)+1;zLives.textContent=s.lives;zPlayed.textContent=s.played;zAnimals.textContent=s.animals;
+zSound.textContent=s.sound?"ON":"OFF";zDiff.textContent=["Easy","Medium","Hard"][s.diff];document.body.classList.toggle("zone-night",s.night);
+let a=facts[new Date().getDate()%facts.length];zAnimal.textContent=a[0];zFact.textContent=a[1];
+let b=[[s.played>=1,"🌱 First Game"],[s.played>=3,"🎮 Game Explorer"],[s.points>=100,"⭐ 100 Point Star"],[s.points>=250,"🏆 Jungle Champion"],[s.animals>=5,"🐾 Animal Collector"],[s.daily,"🎯 Daily Hero"]];
+zBadges.innerHTML=b.map(x=>'<span class="zbadge '+(x[0]?"on":"")+'">'+(x[0]?"🏅 ":"🔒 ")+x[1]+"</span>").join("");
+let n=b.filter(x=>x[0]).length;zBar.style.width=(n/b.length*100)+"%";zProgress.textContent=n+"/"+b.length+" achievements unlocked";
+}
+window.zDaily=function(){if(s.daily){alert("🎯 Daily challenge already completed!");return}s.daily=true;s.points+=25;alert("🎉 +25 bonus points!");save()};
+window.zNight=function(){s.night=!s.night;save()};
+window.zSound=function(){s.sound=!s.sound;save()};
+window.zDifficulty=function(){s.diff=(s.diff+1)%3;save()};
+window.zReset=function(){if(confirm("Reset Games Zone progress?")){s={points:0,played:0,animals:0,lives:5,diff:0,sound:true,night:false,daily:false};save()}};
+draw();
+})();
+</script></body>
 </html>
