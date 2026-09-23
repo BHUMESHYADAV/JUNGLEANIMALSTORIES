@@ -270,92 +270,141 @@ Bhumesh Subedar Yadav`
 
     function openDonation() {
 
-  const donationWindow = window.open("", "_blank", "width=500,height=700");
+  const donationWindow = window.open("", "_blank", "width=560,height=820,scrollbars=yes,resizable=yes");
+
+  if (!donationWindow) {
+    alert("Please allow pop-ups for this website to open the donation page.");
+    return;
+  }
+
+  const upiId = "7043198890@ptsbi";
+  const payeeName = "Bhumesh Subedar Yadav";
 
   donationWindow.document.write(`
-  
   <html>
   <head>
-    <title>Donate - Jungle Stories</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Jungle Animal Stories</title>
     <style>
-
+      *{box-sizing:border-box;}
       body{
-        font-family: Arial, sans-serif;
+        margin:0;
+        font-family:Arial,Helvetica,sans-serif;
+        background:linear-gradient(135deg,#073b1a,#146b35 48%,#8bc34a);
+        color:#fff;
+        min-height:100vh;
+        padding:24px 14px 40px;
+      }
+      .donation-card{
+        width:min(100%,500px);
+        margin:0 auto;
+        background:rgba(255,255,255,.97);
+        color:#17351f;
+        border-radius:28px;
+        padding:28px 22px;
         text-align:center;
-        background: linear-gradient(to bottom, #1b5e20, #4CAF50);
-        color:white;
-        padding:20px;
+        box-shadow:0 18px 45px rgba(0,0,0,.35);
       }
-
-      h1{
-        margin-top:20px;
+      .heart{font-size:48px;line-height:1;}
+      h1{margin:10px 0 8px;font-size:28px;color:#145a2a;}
+      .subtitle{font-size:16px;line-height:1.55;color:#53635a;margin:0 auto 20px;max-width:420px;}
+      .support-badge{display:inline-block;background:#e8f5e9;color:#1b5e20;border-radius:999px;padding:8px 14px;font-weight:bold;font-size:14px;margin-bottom:18px;}
+      .qr-box{background:#fff;border:1px solid #e0e0e0;border-radius:22px;padding:16px;display:inline-block;box-shadow:0 8px 24px rgba(0,0,0,.12);}
+      .qr-box img{width:min(280px,72vw);height:auto;border-radius:12px;display:block;margin:auto;}
+      .scan-text{margin:16px 0 12px;font-size:15px;color:#56635b;}
+      .upi-row{display:flex;align-items:center;gap:8px;background:#f4f8f4;border:1px solid #d7e5d9;border-radius:14px;padding:8px;margin:12px 0 18px;}
+      .upi-id{flex:1;min-width:0;font-weight:bold;color:#174d26;word-break:break-all;font-size:15px;}
+      button{font:inherit;cursor:pointer;border:0;}
+      .copy-btn{background:#1b5e20;color:#fff;padding:10px 13px;border-radius:10px;font-weight:bold;white-space:nowrap;}
+      .copy-btn:hover{background:#124516;}
+      .section-title{font-weight:bold;margin:20px 0 10px;color:#24552e;}
+      .amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;}
+      .amount-btn{background:#fff;border:2px solid #81c784;color:#1b5e20;padding:11px 6px;border-radius:12px;font-weight:bold;transition:.2s;}
+      .amount-btn:hover{background:#e8f5e9;transform:translateY(-1px);}
+      .pay-btn{width:100%;padding:15px;border-radius:14px;background:linear-gradient(135deg,#ff5252,#e53935);color:#fff;font-size:17px;font-weight:bold;box-shadow:0 5px 12px rgba(198,40,40,.3);margin-top:4px;}
+      .pay-btn:hover{filter:brightness(.95);transform:translateY(-1px);}
+      .note{font-size:13px;color:#68756d;line-height:1.5;margin:15px 4px 4px;}
+      .secure{font-size:13px;color:#1b5e20;font-weight:bold;margin-top:15px;}
+      .footer{margin-top:18px;font-size:14px;color:#6a746d;line-height:1.5;}
+      .close-btn{margin-top:16px;background:#edf1ee;color:#314238;padding:10px 18px;border-radius:10px;font-weight:bold;}
+      @media(max-width:430px){
+        .donation-card{padding:24px 15px;border-radius:22px;}
+        h1{font-size:24px;}
+        .amounts{grid-template-columns:repeat(2,1fr);}
+        .upi-row{align-items:stretch;flex-direction:column;}
+        .copy-btn{width:100%;}
       }
-
-      .qr-box{
-        background:white;
-        padding:20px;
-        border-radius:20px;
-        display:inline-block;
-        margin-top:20px;
-        box-shadow:0 8px 20px rgba(0,0,0,0.4);
-      }
-
-      img{
-        width:300px;
-        border-radius:15px;
-      }
-
-      p{
-        font-size:18px;
-        margin-top:20px;
-      }
-
-      .thankyou{
-        margin-top:25px;
-        font-size:20px;
-        font-weight:bold;
-        color:#ffe082;
-      }
-
     </style>
-
   </head>
-
   <body>
+    <main class="donation-card">
+      <div class="heart">❤️</div>
+      <h1>Support Jungle Animal Stories</h1>
+      <p class="subtitle">Your support helps me create more educational animal stories, games and fun learning activities for children.</p>
+      <div class="support-badge">🌿 Created by Bhumesh Subedar Yadav</div>
 
-    <h1>❤️ Support Jungle Animal Stories ❤️</h1>
+      <div class="qr-box">
+        <img src="QR code image of Bhumesh Paytm.jpg" alt="UPI donation QR code">
+      </div>
 
-    <p>
-      UPI ID :  7043198890@ptsbi
-    </p>
+      <p class="scan-text">📱 Scan the QR code with any supported UPI app.</p>
 
-    <p>
-      Scan this QR code to donate and support more
-      educational stories for children.
-    </p>
+      <div class="upi-row">
+        <div class="upi-id" id="upiId">${upiId}</div>
+        <button class="copy-btn" onclick="copyUPI()">📋 Copy UPI ID</button>
+      </div>
 
-    <div class="qr-box">
+      <div class="section-title">Choose a quick donation amount</div>
+      <div class="amounts">
+        <button class="amount-btn" onclick="payUPI(51)">₹51</button>
+        <button class="amount-btn" onclick="payUPI(101)">₹101</button>
+        <button class="amount-btn" onclick="payUPI(251)">₹251</button>
+        <button class="amount-btn" onclick="payUPI(501)">₹501</button>
+      </div>
 
-      <img src="QR code image of Bhumesh Paytm.jpg" alt="Donation QR Code">
+      <button class="pay-btn" onclick="payUPI()">💳 Pay with UPI</button>
 
-    </div>
+      <p class="note">On a mobile device, the button may open a UPI-compatible payment app. If it does not, simply scan the QR code or copy the UPI ID into your preferred UPI app.</p>
+      <div class="secure">🔒 Payment is handled by your UPI app.</div>
 
-    <div class="thankyou">
-      Thank You For Your Support 🌿
-    </div>
+      <div class="footer">
+        Thank you for helping support free educational content for children. 🌳🐘🦁<br>
+        <strong>${payeeName}</strong>
+      </div>
 
-    <p>
-      Created by <br>
-      <strong>Bhumesh Subedar Yadav</strong>
-    </p>
+      <button class="close-btn" onclick="window.close()">Close Donation Page</button>
+    </main>
 
+    <script>
+      const donationUpiId = "${upiId}";
+      const donationPayee = "${payeeName}";
+
+      function payUPI(amount){
+        let url = "upi://pay?pa=" + encodeURIComponent(donationUpiId)
+          + "&pn=" + encodeURIComponent(donationPayee)
+          + "&cu=INR";
+        if (amount) {
+          url += "&am=" + encodeURIComponent(Number(amount).toFixed(2));
+        }
+        window.location.href = url;
+      }
+
+      async function copyUPI(){
+        try{
+          await navigator.clipboard.writeText(donationUpiId);
+          const button = document.querySelector('.copy-btn');
+          button.textContent = "✓ Copied";
+          setTimeout(() => button.textContent = "📋 Copy UPI ID", 1800);
+        }catch(error){
+          window.prompt("Copy this UPI ID:", donationUpiId);
+        }
+      }
+    <\/script>
   </body>
-
   </html>
-
   `);
 
+  donationWindow.document.close();
 }
 
     function goHome() {
