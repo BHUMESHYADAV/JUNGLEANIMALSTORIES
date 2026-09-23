@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Animal Habitat Match</title>
+<style>
+body{margin:0;font-family:"Comic Sans MS",cursive;background:linear-gradient(135deg,#1b5e20,#81c784);min-height:100vh;padding:20px;box-sizing:border-box;color:#222;text-align:center}
+.box{max-width:850px;margin:30px auto;background:rgba(255,255,255,.96);border-radius:28px;padding:30px;box-shadow:0 10px 30px #0005}
+h1{color:#1b5e20;font-size:2.5em}button,.back{border:0;border-radius:12px;padding:12px 20px;margin:7px;background:#4caf50;color:white;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}
+button:hover,.back:hover{background:#2e7d32}.question{font-size:1.3em;margin:20px}.choice{display:block;width:min(500px,90%);margin:10px auto;background:#e8f5e9;color:#1b5e20;border:2px solid #81c784}
+.choice:hover{background:#c8e6c9}.result{font-size:1.3em;font-weight:bold;margin:20px}.animal{font-size:5em}.clue{background:#f1f8e9;padding:14px;border-radius:15px;margin:10px}
+</style></head><body><div class="box">
+<h1>🏡 Animal Habitat Match</h1><p>Choose the habitat where the animal belongs.</p><div class="animal" id="animal"></div><div id="game"></div><div class="result" id="result"></div>
+<a class="back" href="special-games.html">⬅ Back to Special Games</a>
+<script>
+const qs=[["🐘 Elephant",["Ocean","Grassland","Arctic","Deep cave"],1],["🐧 Penguin",["Arctic regions","Desert","Rainforest","Savanna"],0],["🐪 Camel",["Desert","Ocean","Arctic","Jungle"],0],["🐬 Dolphin",["Ocean","Desert","Grassland","Forest"],0],["🐼 Panda",["Bamboo forest","Desert","Ocean","Arctic"],0]];
+let n=0,s=0;function show(){if(n==qs.length){game.innerHTML="<h2>🎉 Habitat Explorer Complete!</h2>";result.textContent="Score: "+s+"/"+qs.length;return}let q=qs[n];animal.textContent=q[0];game.innerHTML="<div class='question'>Where does this animal live?</div>"+q[1].map((x,i)=>`<button class="choice" onclick="a(${i})">${x}</button>`).join("")}function a(i){if(i===qs[n][2])s++;n++;show()}show();
+</script></div></body></html>

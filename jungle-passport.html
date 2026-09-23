@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Jungle Passport</title>
+<style>
+body{margin:0;font-family:"Comic Sans MS",cursive;background:linear-gradient(135deg,#1b5e20,#81c784);min-height:100vh;padding:20px;box-sizing:border-box;color:#222;text-align:center}
+.box{max-width:850px;margin:30px auto;background:rgba(255,255,255,.96);border-radius:28px;padding:30px;box-shadow:0 10px 30px #0005}
+h1{color:#1b5e20;font-size:2.5em}button,.back{border:0;border-radius:12px;padding:12px 20px;margin:7px;background:#4caf50;color:white;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}
+button:hover,.back:hover{background:#2e7d32}.question{font-size:1.3em;margin:20px}.choice{display:block;width:min(500px,90%);margin:10px auto;background:#e8f5e9;color:#1b5e20;border:2px solid #81c784}
+.choice:hover{background:#c8e6c9}.result{font-size:1.3em;font-weight:bold;margin:20px}.animal{font-size:5em}.clue{background:#f1f8e9;padding:14px;border-radius:15px;margin:10px}
+</style></head><body><div class="box">
+<h1>🗺️ Jungle Passport</h1><p>Collect your animal discovery stamps!</p><div class="animal">🎟️</div>
+<div id="stamps"></div><p id="count"></p><button onclick="discover()">🐾 Discover Random Animal</button>
+<button onclick="clearPass()">Reset Passport</button><br><a class="back" href="special-games.html">⬅ Back to Special Games</a>
+<script>
+const animals=["🐘 Elephant","🦁 Lion","🐯 Tiger","🦒 Giraffe","🐼 Panda","🦓 Zebra","🐊 Crocodile","🦏 Rhino","🦛 Hippo","🦊 Fox","🐺 Wolf","🦚 Peacock"];
+let found=JSON.parse(localStorage.getItem("junglePassport")||"[]");
+function render(){stamps.innerHTML=animals.map(a=>`<span style="display:inline-block;background:${found.includes(a)?"#fff3cd":"#eee"};padding:14px;margin:6px;border-radius:15px;opacity:${found.includes(a)?1:.45}">${a}<br>${found.includes(a)?"⭐ Discovered":"🔒 Locked"}</span>`).join("");count.textContent="Animals discovered: "+found.length+"/"+animals.length}
+function discover(){let remaining=animals.filter(a=>!found.includes(a));if(!remaining.length){alert("🏆 You discovered every animal!");return}let a=remaining[Math.floor(Math.random()*remaining.length)];found.push(a);localStorage.setItem("junglePassport",JSON.stringify(found));alert("🎉 New passport stamp: "+a);render()}
+function clearPass(){if(confirm("Reset your Jungle Passport?")){found=[];localStorage.removeItem("junglePassport");render()}}render();
+</script></div></body></html>

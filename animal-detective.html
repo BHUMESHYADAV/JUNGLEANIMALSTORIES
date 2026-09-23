@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Animal Detective</title>
+<style>
+body{margin:0;font-family:"Comic Sans MS",cursive;background:linear-gradient(135deg,#1b5e20,#81c784);min-height:100vh;padding:20px;box-sizing:border-box;color:#222;text-align:center}
+.box{max-width:850px;margin:30px auto;background:rgba(255,255,255,.96);border-radius:28px;padding:30px;box-shadow:0 10px 30px #0005}
+h1{color:#1b5e20;font-size:2.5em}button,.back{border:0;border-radius:12px;padding:12px 20px;margin:7px;background:#4caf50;color:white;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}
+button:hover,.back:hover{background:#2e7d32}.question{font-size:1.3em;margin:20px}.choice{display:block;width:min(500px,90%);margin:10px auto;background:#e8f5e9;color:#1b5e20;border:2px solid #81c784}
+.choice:hover{background:#c8e6c9}.result{font-size:1.3em;font-weight:bold;margin:20px}.animal{font-size:5em}.clue{background:#f1f8e9;padding:14px;border-radius:15px;margin:10px}
+</style></head><body><div class="box">
+<h1>🕵️ Animal Detective</h1><p>Read the clues and identify the mystery animal!</p><div id="game"></div><div class="result" id="result"></div>
+<a class="back" href="special-games.html">⬅ Back to Special Games</a>
+<script>
+const qs=[
+["I have a long trunk, large ears and I am the biggest land animal.","Elephant",["Elephant","Fox","Tiger","Rabbit"]],
+["I have black and white stripes and look like a horse.","Zebra",["Zebra","Lion","Panda","Deer"]],
+["I am famous for my black-and-white fur and love bamboo.","Panda",["Panda","Wolf","Giraffe","Hippo"]],
+["I have a very long neck and eat leaves from tall trees.","Giraffe",["Giraffe","Crocodile","Bear","Tiger"]],
+["I have a mane and a powerful roar.","Lion",["Lion","Rabbit","Deer","Parrot"]]];
+let n=0,s=0;function show(){if(n==qs.length){game.innerHTML="<h2>🎉 Case Closed!</h2>";result.textContent="Detective score: "+s+"/"+qs.length;return}let q=qs[n];game.innerHTML="<div class='clue'>🔎 Clue "+(n+1)+": "+q[0]+"</div>"+q[2].map(x=>`<button class="choice" onclick="a('${x}')">${x}</button>`).join("")}function a(x){if(x===qs[n][1])s++;n++;show()}show();
+</script></div></body></html>

@@ -5,45 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Special Games - Jungle Animal Stories</title>
 <style>
-body{margin:0;font-family:"Comic Sans MS",cursive;background:linear-gradient(135deg,#1b5e20,#81c784);min-height:100vh;color:#fff;text-align:center;padding:30px;box-sizing:border-box}.games-wrap{max-width:1000px;margin:40px auto;background:rgba(0,0,0,.28);padding:35px;border-radius:28px;box-shadow:0 10px 30px rgba(0,0,0,.3)}h1{font-size:3em;text-shadow:2px 2px 6px #000;margin-bottom:10px}.subtitle{font-size:1.2em;margin-bottom:30px}.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}.game-card{background:rgba(255,255,255,.95);color:#222;border-radius:22px;padding:25px;box-shadow:0 6px 15px rgba(0,0,0,.25);transition:.25s}.game-card:hover{transform:translateY(-6px) scale(1.02)}.game-icon{font-size:4em}.game-card h2{color:#1b5e20}.game-card p{font-size:1.05em;min-height:50px}.play-btn,.home-btn{display:inline-block;padding:12px 22px;border:0;border-radius:12px;text-decoration:none;color:#fff;font-weight:bold;background:#4CAF50;box-shadow:2px 2px #2e7d32}.play-btn:hover,.home-btn:hover{background:#388E3C}.home-btn{margin-top:30px;background:#ff9800;box-shadow:2px 2px #e65100}.home-btn:hover{background:#f57c00}@media(max-width:600px){h1{font-size:2.2em}.games-wrap{padding:20px}}
+body{margin:0;font-family:"Comic Sans MS",cursive;background:linear-gradient(135deg,#1b5e20,#81c784);min-height:100vh;color:#fff;text-align:center;padding:30px;box-sizing:border-box}
+.games-wrap{max-width:1100px;margin:40px auto;background:rgba(0,0,0,.28);padding:35px;border-radius:28px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+h1{font-size:3em;text-shadow:2px 2px 6px #000;margin-bottom:10px}.subtitle{font-size:1.2em;margin-bottom:30px}
+.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}
+.game-card{background:rgba(255,255,255,.95);color:#222;border-radius:22px;padding:25px;box-shadow:0 6px 15px rgba(0,0,0,.25);transition:.25s}
+.game-card:hover{transform:translateY(-6px) scale(1.02)}.game-icon{font-size:4em}.game-card h2{color:#1b5e20}
+.game-card p{font-size:1.05em;min-height:50px}.play-btn,.home-btn{display:inline-block;padding:12px 22px;border:0;border-radius:12px;text-decoration:none;color:#fff;font-weight:bold;background:#4CAF50;box-shadow:2px 2px #2e7d32}
+.play-btn:hover,.home-btn:hover{background:#388E3C}.home-btn{margin-top:30px;background:#ff9800;box-shadow:2px 2px #e65100}.home-btn:hover{background:#f57c00}
+.badge{display:inline-block;background:#fff3cd;color:#6d4c00;padding:8px 14px;border-radius:20px;margin:4px;font-weight:bold}
+@media(max-width:600px){h1{font-size:2.2em}.games-wrap{padding:20px}}
 </style>
 </head>
 <body>
 <div class="games-wrap">
 <h1>🎮 Special Games</h1>
 <p class="subtitle">Welcome to the Jungle Games Zone! Choose a game and have fun learning about animals.</p>
+<div>
+<span class="badge">🧠 Brain Games</span><span class="badge">🐾 Animal Games</span><span class="badge">🏆 Challenges</span>
+</div><br>
 <div class="games">
 <div class="game-card"><div class="game-icon">🎯</div><h2>Animal Matching Game</h2><p>Match the correct animal images and test your jungle knowledge.</p><a class="play-btn" href="animal-matching-game.html">▶ Play Game</a></div>
 <div class="game-card"><div class="game-icon">🃏</div><h2>Animal Memory Game</h2><p>Find matching animal pairs and challenge your memory.</p><a class="play-btn" href="animal-memory-game.html">▶ Play Game</a></div>
- <div class="game-card">
-    <div class="game-icon">🔊</div>
+<div class="game-card"><div class="game-icon">🔊</div><h2>Animal Sound Guessing Game</h2><p>Listen to the animal sound and guess which animal made it!</p><a class="play-btn" href="animal-sound-game.html">🔊 Play Sound Game</a></div>
+<div class="game-card"><div class="game-icon">🌿</div><h2>Jungle Maze Adventure</h2><p>Explore the jungle, find your way through the maze, and rescue the lost animal!</p><a class="play-btn" href="jungle-maze.html">🧭 Play Maze Adventure</a></div>
 
-    <h2>Animal Sound Guessing Game</h2>
-
-    <p>
-        Listen to the animal sound and guess which animal
-        made it!
-    </p>
-
-    <a class="play-btn" href="animal-sound-game.html">
-        🔊 Play Sound Game
-    </a>
-</div>
-
-<div class="game-card">
-  <div class="game-icon">🌿</div>
-
-  <h2>Jungle Maze Adventure</h2>
-
-  <p>
-    Explore the jungle, find your way through
-    the maze, and rescue the lost animal!
-  </p>
-
-  <a class="play-btn" href="jungle-maze.html">
-    🧭 Play Maze Adventure
-  </a>
-</div>
+<div class="game-card"><div class="game-icon">❓</div><h2>Animal Quiz</h2><p>Answer animal questions and earn points in the Jungle Quiz Challenge.</p><a class="play-btn" href="quiz-game.html">🧠 Start Quiz</a></div>
+<div class="game-card"><div class="game-icon">👣</div><h2>Whose Footprint?</h2><p>Look at the footprint and identify the animal that made it.</p><a class="play-btn" href="footprint-game.html">🐾 Find Animal</a></div>
+<div class="game-card"><div class="game-icon">🏡</div><h2>Animal Habitat Match</h2><p>Match each animal with the place where it lives.</p><a class="play-btn" href="habitat-game.html">🌎 Match Habitats</a></div>
+<div class="game-card"><div class="game-icon">🕵️</div><h2>Animal Detective</h2><p>Read the clues and discover which mysterious animal is hiding!</p><a class="play-btn" href="animal-detective.html">🔎 Solve Mystery</a></div>
+<div class="game-card"><div class="game-icon">🗺️</div><h2>Jungle Passport</h2><p>Collect animal discoveries and earn stamps as you explore the games.</p><a class="play-btn" href="jungle-passport.html">🎟️ Open Passport</a></div>
 </div>
 <a class="home-btn" href="index.html">⬅ Back to Jungle Home</a>
 </div>
