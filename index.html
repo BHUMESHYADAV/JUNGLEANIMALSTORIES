@@ -2369,5 +2369,257 @@ Bhumesh Subedar Yadav`
 
     </div>
 
+
+<!-- JAS_COMPLETE_TRILINGUAL_V3 -->
+<style>
+  /* Custom three-language selector */
+  #jas-complete-language {
+    position: fixed;
+    top: 72px;
+    right: 14px;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 9px;
+    border-radius: 12px;
+    background: rgba(0,0,0,.82);
+    box-shadow: 0 4px 14px rgba(0,0,0,.30);
+    font-family: Arial, sans-serif;
+  }
+
+  #jas-complete-language span {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  #jas-complete-language select {
+    border: 0;
+    border-radius: 8px;
+    padding: 7px 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    background: #fff;
+    color: #222;
+  }
+
+  /* Hide Google's default toolbar so only our selector is visible. */
+  .goog-te-banner-frame.skiptranslate {
+    display: none !important;
+  }
+
+  body {
+    top: 0 !important;
+  }
+
+  .goog-te-gadget {
+    font-size: 0 !important;
+  }
+
+  .goog-te-gadget .goog-te-combo {
+    display: none !important;
+  }
+
+  /* Google sometimes adds a small tooltip; keep the site clean. */
+  .goog-tooltip,
+  .goog-tooltip:hover {
+    display: none !important;
+  }
+
+  @media screen and (max-width: 600px) {
+    #jas-complete-language {
+      top: 115px;
+      right: 8px;
+      transform: scale(.92);
+      transform-origin: top right;
+    }
+  }
+</style>
+
+<!-- Hidden Google Translate mount point -->
+<div id="google_translate_element" style="position:absolute;left:-99999px;top:-99999px;"></div>
+
+<div id="jas-complete-language">
+  <span>🌎</span>
+  <select id="jas-complete-language-select" aria-label="Language">
+    <option value="en">English</option>
+    <option value="hi">हिन्दी</option>
+    <option value="gu">ગુજરાતી</option>
+  </select>
+</div>
+
+<script>
+  /*
+   * COMPLETE TRILINGUAL WEBSITE
+   *
+   * English is the original source language.
+   * Hindi and Gujarati translate the complete existing DOM,
+   * including every one of the 62 story texts.
+   *
+   * The original English text is never deleted, so switching
+   * back to English restores the original website.
+   */
+
+  window.jasCompleteLanguage = "en";
+
+  function googleTranslateReady() {
+    return !!document.querySelector(".goog-te-combo");
+  }
+
+  function setGoogleLanguage(lang) {
+    window.jasCompleteLanguage = lang;
+
+    /*
+     * Google Translate uses its own select element. We use our
+     * professional selector above and drive Google's selector.
+     */
+    const googleSelect = document.querySelector(".goog-te-combo");
+
+    if (!googleSelect) {
+      /*
+       * The Google script may still be loading.
+       * Try again shortly.
+       */
+      setTimeout(function () {
+        setGoogleLanguage(lang);
+      }, 500);
+      return;
+    }
+
+    const googleLang = lang === "hi" ? "hi" :
+                       lang === "gu" ? "gu" : "en";
+
+    if (googleSelect.value !== googleLang) {
+      googleSelect.value = googleLang;
+      googleSelect.dispatchEvent(new Event("change"));
+    }
+
+    localStorage.setItem("jungleWebsiteLanguage", lang);
+
+    /*
+     * Update the speech language after the page translation.
+     */
+    document.documentElement.lang =
+      lang === "hi" ? "hi-IN" :
+      lang === "gu" ? "gu-IN" : "en-IN";
+  }
+
+  function chooseJungleLanguage(lang) {
+    const selector =
+      document.getElementById("jas-complete-language-select");
+
+    if (selector) {
+      selector.value = lang;
+    }
+
+    setGoogleLanguage(lang);
+  }
+
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {
+        pageLanguage: "en",
+        includedLanguages: "en,hi,gu",
+        autoDisplay: false,
+        multilanguagePage: true
+      },
+      "google_translate_element"
+    );
+
+    /*
+     * Wait until Google's select exists, then restore the
+     * language chosen by the visitor.
+     */
+    const saved =
+      localStorage.getItem("jungleWebsiteLanguage") || "en";
+
+    let attempts = 0;
+
+    const waitForGoogle = setInterval(function () {
+      attempts++;
+
+      if (googleTranslateReady()) {
+        clearInterval(waitForGoogle);
+        chooseJungleLanguage(saved);
+      }
+
+      if (attempts > 40) {
+        clearInterval(waitForGoogle);
+      }
+    }, 250);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const selector =
+      document.getElementById("jas-complete-language-select");
+
+    if (selector) {
+      selector.addEventListener("change", function () {
+        chooseJungleLanguage(this.value);
+      });
+
+      const saved =
+        localStorage.getItem("jungleWebsiteLanguage") || "en";
+
+      selector.value = saved;
+    }
+  });
+
+  /*
+   * Make the existing "Listen Story" feature speak the selected
+   * language. This overrides only readStory(), while keeping the
+   * existing story controls and audio sounds unchanged.
+   */
+  window.readStory = function (id) {
+    const story = document.getElementById(id);
+    if (!story) return;
+
+    window.speechSynthesis.cancel();
+
+    const text = story.innerText;
+    const speech = new SpeechSynthesisUtterance(text);
+
+    speech.rate = 0.75;
+    speech.pitch = 0.8;
+    speech.volume = 1;
+
+    const lang =
+      localStorage.getItem("jungleWebsiteLanguage") || "en";
+
+    speech.lang =
+      lang === "hi" ? "hi-IN" :
+      lang === "gu" ? "gu-IN" : "en-IN";
+
+    const voices = window.speechSynthesis.getVoices();
+
+    /*
+     * Prefer a voice for the selected language.
+     */
+    const languagePrefix =
+      lang === "hi" ? "hi" :
+      lang === "gu" ? "gu" : "en";
+
+    const matchingVoice = voices.find(function (voice) {
+      return voice.lang &&
+             voice.lang.toLowerCase().startsWith(languagePrefix);
+    });
+
+    speech.voice =
+      matchingVoice ||
+      voices.find(function (voice) {
+        return voice.name.toLowerCase().includes("male") ||
+               voice.name.toLowerCase().includes("deep");
+      }) ||
+      voices[0];
+
+    window.speechSynthesis.speak(speech);
+  };
+</script>
+
+<!-- Google Website Translator -->
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
