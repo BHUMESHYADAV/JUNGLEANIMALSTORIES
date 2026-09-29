@@ -334,65 +334,7 @@ Bhumesh Subedar Yadav`
         .upi-row{align-items:stretch;flex-direction:column;}
         .copy-btn{width:100%;}
       }
-    
-/* ================= ADVERTISEMENT AREA ================= */
-.jungle-ad-wrap{
-  width:min(100%,1100px);
-  margin:24px auto;
-  padding:0 15px;
-  box-sizing:border-box;
-}
-.jungle-ad{
-  position:relative;
-  min-height:120px;
-  border:2px solid rgba(76,175,80,.45);
-  border-radius:18px;
-  background:linear-gradient(135deg,rgba(232,245,233,.96),rgba(255,255,255,.96));
-  box-shadow:0 8px 22px rgba(0,0,0,.14);
-  overflow:hidden;
-}
-.jungle-ad::before{
-  content:"🌿";
-  position:absolute;
-  left:12px;
-  top:8px;
-  font-size:24px;
-}
-.jungle-ad-label{
-  position:absolute;
-  top:9px;
-  right:12px;
-  font:700 11px Arial,sans-serif;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:#5f6f63;
-}
-.jungle-ad-title{
-  padding:32px 18px 5px;
-  text-align:center;
-  color:#24552e;
-  font:700 18px Arial,sans-serif;
-}
-.jungle-ad-note{
-  margin:0 auto 12px;
-  padding:0 18px;
-  max-width:650px;
-  text-align:center;
-  color:#66736a;
-  font:14px/1.45 Arial,sans-serif;
-}
-.adsbygoogle{
-  display:block;
-  min-height:90px;
-}
-@media(max-width:600px){
-  .jungle-ad-wrap{padding:0 10px;margin:16px auto;}
-  .jungle-ad{min-height:105px;border-radius:14px;}
-  .jungle-ad-title{font-size:16px;padding-top:30px;}
-  .jungle-ad-note{font-size:12px;}
-}
-/* ======================================================= */
-</style>
+    </style>
   </head>
   <body>
     <main class="donation-card">
@@ -508,19 +450,7 @@ Bhumesh Subedar Yadav`
 } 
 
     function toggleMusic() {
-      const bgMusic = document.getElementById('bgMusic')
-  <!--
-    GOOGLE ADSENSE SETUP
-    1) Create/verify your AdSense account and add this website.
-    2) After Google approves the site, replace YOUR_PUBLISHER_ID below
-       with your real ca-pub-XXXXXXXXXXXXXXXX publisher ID.
-    3) Keep the ad slot values supplied by your AdSense account.
-    4) Do not click your own ads or ask visitors to click them.
-  -->
-  <!-- <script async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
-    crossorigin="anonymous"></script> -->
-;
+      const bgMusic = document.getElementById('bgMusic');
       if (bgMusic.paused) {
         bgMusic.play();
       } else {
@@ -574,31 +504,7 @@ Bhumesh Subedar Yadav`
   <audio id="bgMusic" src="softmusic.mp3" loop></audio>
 
   
-  
-<!-- Jungle Animal Advertisement: Google AdSense responsive slot -->
-<section class="jungle-ad-wrap" aria-label="Advertisement">
-  <div class="jungle-ad">
-    <span class="jungle-ad-label">Advertisement</span>
-    <div class="jungle-ad-title">🐘🦁 Discover More Jungle Adventures 🌿</div>
-    <p class="jungle-ad-note">
-      Animal learning, nature activities and family-friendly products may appear here.
-    </p>
-    <!--
-      AFTER ADSENSE APPROVAL:
-      Replace this comment with the exact responsive AdSense code from your AdSense account.
-      Example structure only — do not use this example as an earning ad until configured.
-
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
-           data-ad-slot="YOUR_AD_SLOT_ID"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    -->
-  </div>
-</section>
-<div class="home-screen">
+  <div class="home-screen">
 
     <nav class="menu-bar">
 
@@ -630,19 +536,7 @@ Bhumesh Subedar Yadav`
 
   <button class="music-toggle" onclick="toggleMusic()">🎵 Toggle Music</button>
 
-  
-<!-- Jungle Animal Advertisement: responsive ad placement -->
-<section class="jungle-ad-wrap" aria-label="Advertisement">
-  <div class="jungle-ad">
-    <span class="jungle-ad-label">Advertisement</span>
-    <div class="jungle-ad-title">🦒🌳 More Fun for Young Animal Explorers 🐒</div>
-    <p class="jungle-ad-note">
-      Family-friendly animal and nature advertisements can appear in this space.
-    </p>
-    <!-- Insert the approved responsive AdSense unit code here. -->
-  </div>
-</section>
-<div class="story-section">
+  <div class="story-section">
 
     <button class="back-button" onclick="goHome()">⬅ Back to Home</button>
 
