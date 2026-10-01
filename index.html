@@ -252,6 +252,112 @@
         margin-right: 15px;
       }
     }
+
+    /* JUNGLE COLORING BOOK */
+    .coloring-section{
+      display:none;
+      min-height:100vh;
+      padding:100px 18px 40px;
+      box-sizing:border-box;
+      background:linear-gradient(180deg,#e8f5e9 0%,#fffde7 100%);
+      color:#17351f;
+    }
+    .coloring-header{
+      max-width:1100px;
+      margin:0 auto 25px;
+      text-align:center;
+    }
+    .coloring-header h2{
+      margin:0 0 8px;
+      font-size:2.4em;
+      color:#1b5e20;
+    }
+    .coloring-header p{
+      margin:0 auto 18px;
+      max-width:760px;
+      line-height:1.6;
+    }
+    .coloring-toolbar{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:10px;
+      margin:18px auto 25px;
+    }
+    .color-btn{
+      border:0;
+      border-radius:12px;
+      padding:11px 16px;
+      background:#4CAF50;
+      color:#fff;
+      font-weight:bold;
+      cursor:pointer;
+      box-shadow:2px 2px #2e7d32;
+    }
+    .color-btn:hover{background:#388E3C;transform:translateY(-1px);}
+    .coloring-grid{
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:20px;
+    }
+    .color-card{
+      background:rgba(255,255,255,.96);
+      border:3px solid #81c784;
+      border-radius:20px;
+      padding:14px;
+      box-shadow:0 8px 22px rgba(0,0,0,.12);
+      text-align:center;
+    }
+    .color-card h3{
+      margin:5px 0 12px;
+      color:#1b5e20;
+    }
+    .color-canvas{
+      width:100%;
+      height:auto;
+      aspect-ratio:1/1;
+      display:block;
+      background:#fff;
+      border:2px solid #c8e6c9;
+      border-radius:14px;
+      touch-action:none;
+      cursor:crosshair;
+    }
+    .color-actions{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:8px;
+      margin-top:12px;
+    }
+    .color-actions button{
+      border:0;
+      border-radius:10px;
+      padding:9px 12px;
+      cursor:pointer;
+      font-weight:bold;
+      background:#8bc34a;
+      color:#17351f;
+    }
+    .color-actions button:hover{background:#aed581;}
+    .color-note{
+      max-width:900px;
+      margin:25px auto 0;
+      padding:15px;
+      background:#fff;
+      border-radius:15px;
+      border:2px dashed #8bc34a;
+      text-align:center;
+      line-height:1.5;
+    }
+    @media(max-width:600px){
+      .coloring-section{padding:90px 10px 30px;}
+      .coloring-header h2{font-size:1.8em;}
+      .color-card{padding:10px;}
+    }
+
   </style>
   <script>
 
@@ -483,6 +589,145 @@ Bhumesh Subedar Yadav`
   window.speechSynthesis.cancel();
 }
   
+
+    const coloringAnimals = {
+      "Lion": ["#d7ccc8","#8d6e63","#ffcc80","#fff59d","#90caf9"],
+      "Elephant": ["#b0bec5","#90a4ae","#cfd8dc","#fff59d","#81d4fa"],
+      "Tiger": ["#ffb74d","#ff7043","#ffd54f","#81c784","#90caf9"],
+      "Monkey": ["#a1887f","#6d4c41","#ffcc80","#81c784","#90caf9"],
+      "Giraffe": ["#ffd54f","#8d6e63","#ffb74d","#81c784","#90caf9"],
+      "Peacock": ["#26a69a","#42a5f5","#7e57c2","#66bb6a","#ffd54f"],
+      "Panda": ["#212121","#eeeeee","#90caf9","#81c784","#ffcc80"],
+      "Zebra": ["#212121","#ffffff","#90caf9","#81c784","#ffd54f"]
+    };
+
+    function makeColoringPage(canvas, animal){
+      const ctx = canvas.getContext("2d");
+      const dpr = window.devicePixelRatio || 1;
+      const size = 600;
+      canvas.width = size * dpr;
+      canvas.height = size * dpr;
+      ctx.scale(dpr,dpr);
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      function clear(){
+        ctx.save();
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0,0,size,size);
+        ctx.restore();
+        drawOutline();
+      }
+
+      function drawOutline(){
+        ctx.save();
+        ctx.strokeStyle = "#111";
+        ctx.lineWidth = 8;
+        ctx.fillStyle = "#fff";
+        ctx.beginPath();
+
+        if(animal === "Lion"){
+          ctx.arc(300,300,190,0,Math.PI*2);
+          ctx.fill(); ctx.stroke();
+          ctx.beginPath(); ctx.arc(300,300,115,0,Math.PI*2); ctx.stroke();
+          ctx.beginPath(); ctx.arc(255,275,14,0,Math.PI*2); ctx.stroke();
+          ctx.beginPath(); ctx.arc(345,275,14,0,Math.PI*2); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(285,325); ctx.quadraticCurveTo(300,340,315,325); ctx.stroke();
+          for(let i=0;i<12;i++){ const a=i*Math.PI/6; ctx.moveTo(300+190*Math.cos(a),300+190*Math.sin(a)); ctx.lineTo(300+225*Math.cos(a),300+225*Math.sin(a)); }
+          ctx.stroke();
+        } else if(animal === "Elephant"){
+          ctx.beginPath(); ctx.ellipse(300,310,170,125,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
+          ctx.beginPath(); ctx.ellipse(165,300,65,95,-.3,0,Math.PI*2); ctx.fill(); ctx.stroke();
+          ctx.beginPath(); ctx.ellipse(435,300,65,95,.3,0,Math.PI*2); ctx.fill(); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(330,330); ctx.bezierCurveTo(410,340,405,430,350,440); ctx.stroke();
+          ctx.beginPath(); ctx.arc(255,280,10,0,Math.PI*2); ctx.stroke();
+          ctx.beginPath(); ctx.arc(345,280,10,0,Math.PI*2); ctx.stroke();
+        } else if(animal === "Tiger"){
+          ctx.beginPath(); ctx.ellipse(300,320,170,135,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(165,230); ctx.lineTo(205,135); ctx.lineTo(250,210); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(350,210); ctx.lineTo(395,135); ctx.lineTo(435,230); ctx.stroke();
+          ctx.beginPath(); ctx.arc(250,295,13,0,Math.PI*2); ctx.stroke();
+          ctx.beginPath(); ctx.arc(350,295,13,0,Math.PI*2); ctx.stroke();
+          for(let x=215;x<=385;x+=35){ctx.moveTo(x,225);ctx.lineTo(x+18,265);ctx.moveTo(x,375);ctx.lineTo(x+18,340);}
+          ctx.stroke();
+        } else if(animal === "Monkey"){
+          ctx.beginPath(); ctx.arc(300,300,145,0,Math.PI*2); ctx.fill(); ctx.stroke();
+          ctx.beginPath(); ctx.arc(155,300,55,0,Math.PI*2); ctx.fill(); ctx.stroke();
+          ctx.beginPath(); ctx.arc(445,300,55,0,Math.PI*2); ctx.fill(); ctx.stroke();
+          ctx.beginPath(); ctx.arc(255,280,14,0,Math.PI*2); ctx.stroke();
+          ctx.beginPath(); ctx.arc(345,280,14,0,Math.PI*2); ctx.stroke();
+          ctx.beginPath(); ctx.arc(300,345,45,0,Math.PI); ctx.stroke();
+        } else if(animal === "Giraffe"){
+          ctx.beginPath(); ctx.roundRect(245,150,110,300,35); ctx.fill(); ctx.stroke();
+          ctx.beginPath(); ctx.ellipse(300,120,75,55,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
+          ctx.beginPath(); ctx.arc(275,115,8,0,Math.PI*2); ctx.stroke();
+          ctx.beginPath(); ctx.arc(325,115,8,0,Math.PI*2); ctx.stroke();
+          for(let y=190;y<410;y+=55){ctx.beginPath();ctx.arc(275,y,18,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.arc(325,y+20,15,0,Math.PI*2);ctx.stroke();}
+        } else if(animal === "Peacock"){
+          ctx.beginPath(); ctx.arc(300,290,70,0,Math.PI*2); ctx.fill(); ctx.stroke();
+          for(let i=0;i<12;i++){const a=(i/12)*Math.PI*2; const x=300+180*Math.cos(a), y=260+180*Math.sin(a); ctx.beginPath();ctx.ellipse(x,y,55,80,a,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.beginPath();ctx.arc(x,y,16,0,Math.PI*2);ctx.stroke();}
+          ctx.beginPath();ctx.moveTo(300,360);ctx.lineTo(270,470);ctx.lineTo(330,470);ctx.closePath();ctx.stroke();
+        } else if(animal === "Panda"){
+          ctx.beginPath(); ctx.arc(300,310,150,0,Math.PI*2); ctx.fill(); ctx.stroke();
+          ctx.beginPath(); ctx.arc(210,175,45,0,Math.PI*2); ctx.fill(); ctx.stroke();
+          ctx.beginPath(); ctx.arc(390,175,45,0,Math.PI*2); ctx.fill(); ctx.stroke();
+          ctx.beginPath();ctx.ellipse(245,285,35,55,-.4,0,Math.PI*2);ctx.stroke();
+          ctx.beginPath();ctx.ellipse(355,285,35,55,.4,0,Math.PI*2);ctx.stroke();
+          ctx.beginPath();ctx.arc(260,300,10,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.arc(340,300,10,0,Math.PI*2);ctx.stroke();
+        } else if(animal === "Zebra"){
+          ctx.beginPath();ctx.ellipse(300,310,170,120,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+          ctx.beginPath();ctx.ellipse(160,260,70,95,-.2,0,Math.PI*2);ctx.fill();ctx.stroke();
+          ctx.beginPath();ctx.moveTo(115,205);ctx.lineTo(105,155);ctx.moveTo(155,190);ctx.lineTo(155,140);ctx.stroke();
+          for(let x=190;x<420;x+=38){ctx.beginPath();ctx.moveTo(x,215);ctx.lineTo(x-35,400);ctx.stroke();}
+          ctx.beginPath();ctx.arc(145,250,10,0,Math.PI*2);ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      clear();
+      let drawing=false, last=null, selected=coloringAnimals[animal][0];
+      canvas._colorState = {ctx,size,clear,get selected(){return selected;},set selected(v){selected=v;}};
+
+      canvas.addEventListener("pointerdown",e=>{drawing=true;last=getPos(e);});
+      canvas.addEventListener("pointerup",()=>{drawing=false;last=null;});
+      canvas.addEventListener("pointerleave",()=>{drawing=false;last=null;});
+      canvas.addEventListener("pointermove",e=>{
+        if(!drawing)return;
+        const p=getPos(e);
+        ctx.strokeStyle=selected;
+        ctx.lineWidth=28;
+        ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();
+        last=p;
+      });
+      function getPos(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*size/r.width,y:(e.clientY-r.top)*size/r.height};}
+      canvas._clearColoring = clear;
+      canvas._download = function(){
+        const link=document.createElement("a");
+        link.download=animal.toLowerCase()+"-coloring-book.png";
+        link.href=canvas.toDataURL("image/png");
+        link.click();
+      };
+    }
+
+    function openColoringBook(){
+      document.querySelector(".home-screen").style.display="none";
+      document.querySelector(".story-section").style.display="none";
+      document.querySelector(".coloring-section").style.display="block";
+      document.querySelectorAll(".color-canvas").forEach((c,i)=>{
+        if(!c.dataset.ready){makeColoringPage(c,Object.keys(coloringAnimals)[i]);c.dataset.ready="1";}
+      });
+      window.scrollTo(0,0);
+    }
+    function closeColoringBook(){
+      document.querySelector(".coloring-section").style.display="none";
+      document.querySelector(".home-screen").style.display="flex";
+      window.scrollTo(0,0);
+    }
+    function printColoringBook(){
+      window.print();
+    }
+    function setColor(canvas,color){canvas._colorState.selected=color;}
+
     // Open a particular story when coming from the Interactive Jungle Map.
     window.addEventListener("DOMContentLoaded", function () {
       const storyId = new URLSearchParams(window.location.search).get("story");
@@ -532,9 +777,106 @@ Bhumesh Subedar Yadav`
     <button class="start-button" onclick="startStories()">Start Reading</button>
     <a href="jungle-map.html" class="map-home-button">🗺️ Explore Interactive Jungle Map</a>
     <a href="special-games.html" class="map-home-button">🎮 Special Games</a>
+    <button class="map-home-button" onclick="openColoringBook()">🎨 Jungle Coloring Book</button>
   </div>
 
   <button class="music-toggle" onclick="toggleMusic()">🎵 Toggle Music</button>
+
+
+  <div class="coloring-section">
+    <button class="back-button" onclick="closeColoringBook()">⬅ Back to Home</button>
+    <div class="coloring-header">
+      <h2>🎨 Jungle Coloring Book</h2>
+      <p>Choose an animal, pick a color, and draw directly on the picture. You can clear, download, or print your coloring page.</p>
+      <div class="coloring-toolbar">
+        <button class="color-btn" onclick="printColoringBook()">🖨️ Print Coloring Book</button>
+      </div>
+    </div>
+    <div class="coloring-grid">
+
+      <div class="color-card">
+        <h3>Lion</h3>
+        <canvas id="color-lion" class="color-canvas" aria-label="Lion coloring page"></canvas>
+        <div class="color-actions">
+          <button style="background:#d7ccc8;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #d7ccc8" onclick="setColor(document.getElementById('color-lion'), '#d7ccc8')"></button><button style="background:#8d6e63;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #8d6e63" onclick="setColor(document.getElementById('color-lion'), '#8d6e63')"></button><button style="background:#ffcc80;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #ffcc80" onclick="setColor(document.getElementById('color-lion'), '#ffcc80')"></button><button style="background:#fff59d;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #fff59d" onclick="setColor(document.getElementById('color-lion'), '#fff59d')"></button><button style="background:#90caf9;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #90caf9" onclick="setColor(document.getElementById('color-lion'), '#90caf9')"></button>
+          <button onclick="document.getElementById('color-lion')._clearColoring()">🔄 Clear</button>
+          <button onclick="document.getElementById('color-lion')._download()">⬇️ Download</button>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <h3>Elephant</h3>
+        <canvas id="color-elephant" class="color-canvas" aria-label="Elephant coloring page"></canvas>
+        <div class="color-actions">
+          <button style="background:#d7ccc8;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #d7ccc8" onclick="setColor(document.getElementById('color-elephant'), '#d7ccc8')"></button><button style="background:#8d6e63;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #8d6e63" onclick="setColor(document.getElementById('color-elephant'), '#8d6e63')"></button><button style="background:#ffcc80;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #ffcc80" onclick="setColor(document.getElementById('color-elephant'), '#ffcc80')"></button><button style="background:#fff59d;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #fff59d" onclick="setColor(document.getElementById('color-elephant'), '#fff59d')"></button><button style="background:#90caf9;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #90caf9" onclick="setColor(document.getElementById('color-elephant'), '#90caf9')"></button>
+          <button onclick="document.getElementById('color-elephant')._clearColoring()">🔄 Clear</button>
+          <button onclick="document.getElementById('color-elephant')._download()">⬇️ Download</button>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <h3>Tiger</h3>
+        <canvas id="color-tiger" class="color-canvas" aria-label="Tiger coloring page"></canvas>
+        <div class="color-actions">
+          <button style="background:#d7ccc8;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #d7ccc8" onclick="setColor(document.getElementById('color-tiger'), '#d7ccc8')"></button><button style="background:#8d6e63;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #8d6e63" onclick="setColor(document.getElementById('color-tiger'), '#8d6e63')"></button><button style="background:#ffcc80;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #ffcc80" onclick="setColor(document.getElementById('color-tiger'), '#ffcc80')"></button><button style="background:#fff59d;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #fff59d" onclick="setColor(document.getElementById('color-tiger'), '#fff59d')"></button><button style="background:#90caf9;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #90caf9" onclick="setColor(document.getElementById('color-tiger'), '#90caf9')"></button>
+          <button onclick="document.getElementById('color-tiger')._clearColoring()">🔄 Clear</button>
+          <button onclick="document.getElementById('color-tiger')._download()">⬇️ Download</button>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <h3>Monkey</h3>
+        <canvas id="color-monkey" class="color-canvas" aria-label="Monkey coloring page"></canvas>
+        <div class="color-actions">
+          <button style="background:#d7ccc8;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #d7ccc8" onclick="setColor(document.getElementById('color-monkey'), '#d7ccc8')"></button><button style="background:#8d6e63;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #8d6e63" onclick="setColor(document.getElementById('color-monkey'), '#8d6e63')"></button><button style="background:#ffcc80;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #ffcc80" onclick="setColor(document.getElementById('color-monkey'), '#ffcc80')"></button><button style="background:#fff59d;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #fff59d" onclick="setColor(document.getElementById('color-monkey'), '#fff59d')"></button><button style="background:#90caf9;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #90caf9" onclick="setColor(document.getElementById('color-monkey'), '#90caf9')"></button>
+          <button onclick="document.getElementById('color-monkey')._clearColoring()">🔄 Clear</button>
+          <button onclick="document.getElementById('color-monkey')._download()">⬇️ Download</button>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <h3>Giraffe</h3>
+        <canvas id="color-giraffe" class="color-canvas" aria-label="Giraffe coloring page"></canvas>
+        <div class="color-actions">
+          <button style="background:#d7ccc8;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #d7ccc8" onclick="setColor(document.getElementById('color-giraffe'), '#d7ccc8')"></button><button style="background:#8d6e63;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #8d6e63" onclick="setColor(document.getElementById('color-giraffe'), '#8d6e63')"></button><button style="background:#ffcc80;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #ffcc80" onclick="setColor(document.getElementById('color-giraffe'), '#ffcc80')"></button><button style="background:#fff59d;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #fff59d" onclick="setColor(document.getElementById('color-giraffe'), '#fff59d')"></button><button style="background:#90caf9;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #90caf9" onclick="setColor(document.getElementById('color-giraffe'), '#90caf9')"></button>
+          <button onclick="document.getElementById('color-giraffe')._clearColoring()">🔄 Clear</button>
+          <button onclick="document.getElementById('color-giraffe')._download()">⬇️ Download</button>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <h3>Peacock</h3>
+        <canvas id="color-peacock" class="color-canvas" aria-label="Peacock coloring page"></canvas>
+        <div class="color-actions">
+          <button style="background:#d7ccc8;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #d7ccc8" onclick="setColor(document.getElementById('color-peacock'), '#d7ccc8')"></button><button style="background:#8d6e63;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #8d6e63" onclick="setColor(document.getElementById('color-peacock'), '#8d6e63')"></button><button style="background:#ffcc80;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #ffcc80" onclick="setColor(document.getElementById('color-peacock'), '#ffcc80')"></button><button style="background:#fff59d;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #fff59d" onclick="setColor(document.getElementById('color-peacock'), '#fff59d')"></button><button style="background:#90caf9;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #90caf9" onclick="setColor(document.getElementById('color-peacock'), '#90caf9')"></button>
+          <button onclick="document.getElementById('color-peacock')._clearColoring()">🔄 Clear</button>
+          <button onclick="document.getElementById('color-peacock')._download()">⬇️ Download</button>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <h3>Panda</h3>
+        <canvas id="color-panda" class="color-canvas" aria-label="Panda coloring page"></canvas>
+        <div class="color-actions">
+          <button style="background:#d7ccc8;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #d7ccc8" onclick="setColor(document.getElementById('color-panda'), '#d7ccc8')"></button><button style="background:#8d6e63;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #8d6e63" onclick="setColor(document.getElementById('color-panda'), '#8d6e63')"></button><button style="background:#ffcc80;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #ffcc80" onclick="setColor(document.getElementById('color-panda'), '#ffcc80')"></button><button style="background:#fff59d;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #fff59d" onclick="setColor(document.getElementById('color-panda'), '#fff59d')"></button><button style="background:#90caf9;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #90caf9" onclick="setColor(document.getElementById('color-panda'), '#90caf9')"></button>
+          <button onclick="document.getElementById('color-panda')._clearColoring()">🔄 Clear</button>
+          <button onclick="document.getElementById('color-panda')._download()">⬇️ Download</button>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <h3>Zebra</h3>
+        <canvas id="color-zebra" class="color-canvas" aria-label="Zebra coloring page"></canvas>
+        <div class="color-actions">
+          <button style="background:#d7ccc8;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #d7ccc8" onclick="setColor(document.getElementById('color-zebra'), '#d7ccc8')"></button><button style="background:#8d6e63;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #8d6e63" onclick="setColor(document.getElementById('color-zebra'), '#8d6e63')"></button><button style="background:#ffcc80;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #ffcc80" onclick="setColor(document.getElementById('color-zebra'), '#ffcc80')"></button><button style="background:#fff59d;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #fff59d" onclick="setColor(document.getElementById('color-zebra'), '#fff59d')"></button><button style="background:#90caf9;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #90caf9" onclick="setColor(document.getElementById('color-zebra'), '#90caf9')"></button>
+          <button onclick="document.getElementById('color-zebra')._clearColoring()">🔄 Clear</button>
+          <button onclick="document.getElementById('color-zebra')._download()">⬇️ Download</button>
+        </div>
+      </div>
+
+    </div>
+    <div class="color-note">🌿 Tip: For young children, start with a large brush and simple colors. On a laptop, use the mouse; on a phone or tablet, use your finger or stylus.</div>
+  </div>
 
   <div class="story-section">
 
