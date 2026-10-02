@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animal Treasure Hunt - Jungle Animal Stories</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:"Comic Sans MS",Arial,sans-serif;background:linear-gradient(135deg,#0b3d20,#2e7d32 45%,#8bc34a);color:#fff;min-height:100vh;padding:20px}.wrap{width:min(1100px,100%);margin:0 auto;background:rgba(0,0,0,.28);border-radius:28px;padding:24px;box-shadow:0 12px 35px rgba(0,0,0,.35)}h1{text-align:center;font-size:clamp(2rem,5vw,3.4rem);margin:8px 0;text-shadow:2px 3px 6px #000}.intro{text-align:center;font-size:1.1rem;line-height:1.6;max-width:800px;margin:0 auto 18px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0}.stat{background:#fff;color:#174d26;border-radius:15px;padding:12px;text-align:center;font-weight:bold}.stat b{display:block;font-size:1.5rem;margin-top:3px}.clue{background:#fff;color:#1f3024;border-radius:20px;padding:18px;text-align:center;margin-bottom:18px;border:3px solid #a5d6a7}.clue h2{color:#1b5e20;margin:0 0 8px}.clue p{font-size:1.12rem;line-height:1.55;margin:6px}.spots{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.spot{min-height:145px;border:0;border-radius:20px;background:linear-gradient(145deg,#66bb6a,#1b5e20);color:#fff;font:inherit;font-weight:bold;font-size:1.05rem;cursor:pointer;box-shadow:0 6px 12px rgba(0,0,0,.25);padding:15px;transition:.2s}.spot:hover{transform:translateY(-4px) scale(1.02)}.spot:disabled{cursor:default;opacity:.75}.spot.good{background:linear-gradient(145deg,#ffd54f,#f57f17);color:#4e2b00}.spot.bad{background:linear-gradient(145deg,#ef9a9a,#b71c1c)}.emoji{font-size:3.2rem;display:block;margin-bottom:8px}.message{min-height:32px;text-align:center;font-size:1.15rem;font-weight:bold;margin:18px 0}.actions{text-align:center;display:flex;justify-content:center;flex-wrap:wrap;gap:10px}.btn{border:0;border-radius:12px;padding:12px 20px;background:#ff9800;color:#fff;font:inherit;font-weight:bold;cursor:pointer;box-shadow:2px 3px #e65100}.btn:hover{background:#f57c00}.home{background:#4caf50;box-shadow:2px 3px #2e7d32}.home:hover{background:#388e3c}.progress{height:14px;background:rgba(255,255,255,.4);border-radius:20px;overflow:hidden;margin:8px 0 18px}.progress i{display:block;height:100%;width:0;background:#ffd54f;transition:.3s}.tip{text-align:center;font-size:.95rem;margin-top:16px;opacity:.95}@media(max-width:700px){body{padding:10px}.wrap{padding:15px;border-radius:20px}.stats{grid-template-columns:repeat(2,1fr)}.spots{grid-template-columns:repeat(2,1fr)}.spot{min-height:125px}.emoji{font-size:2.5rem}}@media(max-width:430px){.spots{grid-template-columns:1fr}.spot{min-height:105px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>💎 Animal Treasure Hunt 🐾</h1>
+<p class="intro">Become a jungle explorer! Read the clue, choose a jungle spot, and find the hidden animal treasure. Be careful—some spots are decoys!</p>
+<div class="stats"><div class="stat">⭐ Score<b id="score">0</b></div><div class="stat">❤️ Lives<b id="lives">5</b></div><div class="stat">🗺️ Round<b id="round">1/8</b></div><div class="stat">🏆 Treasures<b id="found">0</b></div></div>
+<div class="progress"><i id="bar"></i></div>
+<section class="clue"><h2>🔎 Treasure Clue</h2><p id="clue">Loading clue...</p></section>
+<div class="spots" id="spots"></div>
+<div class="message" id="message">Choose a jungle spot to begin!</div>
+<div class="actions"><button class="btn" onclick="newHunt()">🔄 New Hunt</button><a class="btn home" href="special-games.html">⬅ Games Zone</a></div>
+<p class="tip">🌿 Tip: Read carefully! Every clue gives you a hint about the animal and its hiding place.</p>
+</div>
+<script>
+const rounds=[
+ {animal:'Elephant',icon:'🐘',clue:'I am huge, I have a long trunk, and I love water. Find my treasure near the river.',spots:['River Bank','Bamboo Grove','Rocky Cave','Tall Tree','Sunny Meadow','Old Bridge'],correct:0},
+ {animal:'Tiger',icon:'🐯',clue:'I have orange fur and black stripes. I like to rest where the tall grass is thick.',spots:['Waterfall','Tall Grass','Fruit Tree','Mud Pond','Wooden Hut','Rocky Hill'],correct:1},
+ {animal:'Monkey',icon:'🐒',clue:'I swing from branch to branch and love juicy fruit. Search near the fruit tree.',spots:['Deep Cave','Fruit Tree','River Bank','Bamboo Grove','Open Field','Stone Gate'],correct:1},
+ {animal:'Giraffe',icon:'🦒',clue:'I have a very long neck and enjoy leaves high above the ground. Look beside the tallest tree.',spots:['Tallest Tree','River Bank','Dark Cave','Flower Garden','Bridge','Rock Pool'],correct:0},
+ {animal:'Panda',icon:'🐼',clue:'I am black and white and enjoy bamboo. My treasure is hidden in the bamboo grove.',spots:['Waterfall','Bamboo Grove','Tall Grass','Old Bridge','Coconut Tree','Rocky Hill'],correct:1},
+ {animal:'Lion',icon:'🦁',clue:'I am a big cat with a mane. Look for my treasure on the sunny grassland.',spots:['Deep Cave','Sunny Grassland','River Bank','Bamboo Grove','Fruit Tree','Muddy Trail'],correct:1},
+ {animal:'Owl',icon:'🦉',clue:'I am awake at night and fly silently. Search near the old tree.',spots:['Old Tree','River','Bamboo Grove','Waterfall','Open Meadow','Stone Cave'],correct:0},
+ {animal:'Peacock',icon:'🦚',clue:'My beautiful feathers spread like a fan. Find my final treasure near the flower garden.',spots:['Rocky Hill','River Bank','Flower Garden','Tall Grass','Old Tree','Jungle Gate'],correct:2}
+];
+let state={round:0,score:0,lives:5,found:0,locked:false};
+function render(){const r=rounds[state.round];document.getElementById('score').textContent=state.score;document.getElementById('lives').textContent=state.lives;document.getElementById('round').textContent=(state.round+1)+'/'+rounds.length;document.getElementById('found').textContent=state.found;document.getElementById('bar').style.width=(state.round/rounds.length*100)+'%';document.getElementById('clue').textContent=r.clue;document.getElementById('message').textContent='Choose a jungle spot to begin!';state.locked=false;const box=document.getElementById('spots');box.innerHTML='';r.spots.forEach((name,i)=>{const b=document.createElement('button');b.className='spot';b.innerHTML='<span class="emoji">'+['🌊','🌳','🪨','🌴','🌿','🏞️'][i]+'</span>'+name;b.onclick=()=>choose(i,b);box.appendChild(b)});}
+function choose(i,btn){if(state.locked)return;const r=rounds[state.round];state.locked=true;document.querySelectorAll('.spot').forEach(b=>b.disabled=true);if(i===r.correct){btn.classList.add('good');state.score+=25;state.found++;document.getElementById('message').textContent='🎉 Treasure found! '+r.icon+' The '+r.animal+' treasure was here! +25 points';setTimeout(()=>{state.round++;if(state.round>=rounds.length){finish()}else{render()}},1000)}else{btn.classList.add('bad');state.lives--;state.score=Math.max(0,state.score-5);document.getElementById('message').textContent='🌿 Oops! That was a decoy. -5 points. Try the clue again!';if(state.lives<=0){setTimeout(gameOver,900)}else{setTimeout(()=>{state.locked=false;document.querySelectorAll('.spot').forEach(b=>b.disabled=false);document.getElementById('lives').textContent=state.lives;document.getElementById('score').textContent=state.score},900)}}}
+function finish(){document.getElementById('bar').style.width='100%';document.getElementById('round').textContent=rounds.length+'/'+rounds.length;document.getElementById('clue').textContent='🏆 Amazing explorer! You found all '+rounds.length+' animal treasures and completed the hunt!';document.getElementById('spots').innerHTML='<div style="grid-column:1/-1;background:#fff;color:#1b5e20;border-radius:20px;padding:30px;text-align:center;font-size:1.3rem">💎🌿 Treasure Hunt Complete!<br><br><b>Final Score: '+state.score+'</b><br>🐾 Treasures Found: '+state.found+'<br><br>Excellent jungle exploring!</div>';document.getElementById('message').textContent='🎊 Congratulations! You are a Jungle Treasure Champion!';state.locked=true}
+function gameOver(){document.getElementById('message').textContent='💔 Your lives are finished. Start a new hunt and try again!';state.locked=true;document.querySelectorAll('.spot').forEach(b=>b.disabled=true)}
+function newHunt(){state={round:0,score:0,lives:5,found:0,locked:false};render();window.scrollTo({top:0,behavior:'smooth'})}
+render();
+</script>
+</body>
+</html>
