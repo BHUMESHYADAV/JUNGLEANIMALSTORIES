@@ -252,112 +252,6 @@
         margin-right: 15px;
       }
     }
-
-    /* JUNGLE COLORING BOOK */
-    .coloring-section{
-      display:none;
-      min-height:100vh;
-      padding:100px 18px 40px;
-      box-sizing:border-box;
-      background:linear-gradient(180deg,#e8f5e9 0%,#fffde7 100%);
-      color:#17351f;
-    }
-    .coloring-header{
-      max-width:1100px;
-      margin:0 auto 25px;
-      text-align:center;
-    }
-    .coloring-header h2{
-      margin:0 0 8px;
-      font-size:2.4em;
-      color:#1b5e20;
-    }
-    .coloring-header p{
-      margin:0 auto 18px;
-      max-width:760px;
-      line-height:1.6;
-    }
-    .coloring-toolbar{
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:10px;
-      margin:18px auto 25px;
-    }
-    .color-btn{
-      border:0;
-      border-radius:12px;
-      padding:11px 16px;
-      background:#4CAF50;
-      color:#fff;
-      font-weight:bold;
-      cursor:pointer;
-      box-shadow:2px 2px #2e7d32;
-    }
-    .color-btn:hover{background:#388E3C;transform:translateY(-1px);}
-    .coloring-grid{
-      max-width:1100px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:20px;
-    }
-    .color-card{
-      background:rgba(255,255,255,.96);
-      border:3px solid #81c784;
-      border-radius:20px;
-      padding:14px;
-      box-shadow:0 8px 22px rgba(0,0,0,.12);
-      text-align:center;
-    }
-    .color-card h3{
-      margin:5px 0 12px;
-      color:#1b5e20;
-    }
-    .color-canvas{
-      width:100%;
-      height:auto;
-      aspect-ratio:1/1;
-      display:block;
-      background:#fff;
-      border:2px solid #c8e6c9;
-      border-radius:14px;
-      touch-action:none;
-      cursor:crosshair;
-    }
-    .color-actions{
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:8px;
-      margin-top:12px;
-    }
-    .color-actions button{
-      border:0;
-      border-radius:10px;
-      padding:9px 12px;
-      cursor:pointer;
-      font-weight:bold;
-      background:#8bc34a;
-      color:#17351f;
-    }
-    .color-actions button:hover{background:#aed581;}
-    .color-note{
-      max-width:900px;
-      margin:25px auto 0;
-      padding:15px;
-      background:#fff;
-      border-radius:15px;
-      border:2px dashed #8bc34a;
-      text-align:center;
-      line-height:1.5;
-    }
-    @media(max-width:600px){
-      .coloring-section{padding:90px 10px 30px;}
-      .coloring-header h2{font-size:1.8em;}
-      .color-card{padding:10px;}
-    }
-
   </style>
   <script>
 
@@ -441,7 +335,40 @@ Bhumesh Subedar Yadav`
         .copy-btn{width:100%;}
       }
     </style>
-  </head>
+  
+<style id="jungle-coloring-book-styles">
+  /* 🎨 JUNGLE COLORING BOOK */
+  .coloring-book-section{display:none;background:linear-gradient(180deg,#e8f5e9,#fff8e1);color:#17351f;padding:35px 18px 60px;min-height:100vh;font-family:'Comic Sans MS',cursive}
+  .coloring-header{text-align:center;max-width:900px;margin:0 auto 25px}
+  .coloring-header h2{font-size:2.4em;margin:10px 0;color:#1b5e20}
+  .coloring-header p{font-size:1.08em;color:#42554a}
+  .coloring-toolbar{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px;margin:18px auto;max-width:900px}
+  .color-tool,.color-swatch{border:0;border-radius:12px;padding:10px 15px;font-weight:bold;cursor:pointer;box-shadow:2px 2px 5px rgba(0,0,0,.18)}
+  .color-tool{background:#2e7d32;color:#fff}.color-tool:hover{transform:translateY(-1px)}
+  .color-swatch{width:42px;height:42px;padding:0;border:3px solid #fff;outline:2px solid #777}
+  .color-swatch.active{outline:4px solid #1b5e20;transform:scale(1.08)}
+  .coloring-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;max-width:1100px;margin:auto}
+  .coloring-card{background:#fff;border:3px dashed #66bb6a;border-radius:20px;padding:15px;box-shadow:0 8px 22px rgba(0,0,0,.12);text-align:center}
+  .coloring-card h3{margin:5px 0 10px;color:#2e7d32;font-size:1.4em}
+  .coloring-canvas{background:#fff;border:2px solid #263238;border-radius:12px;width:100%;height:auto;touch-action:manipulation;cursor:crosshair}
+  .coloring-card .coloring-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+  .coloring-actions button{border:0;border-radius:10px;padding:9px 13px;cursor:pointer;font-weight:bold;background:#4caf50;color:#fff;box-shadow:2px 2px 4px rgba(0,0,0,.2)}
+  .coloring-actions button:hover{background:#388e3c}
+  .coloring-note{text-align:center;max-width:850px;margin:25px auto 0;padding:15px;border-radius:15px;background:#fff3cd;color:#5d4800;font-weight:bold}
+  .coloring-back{display:block;margin:0 auto 20px;max-width:240px;text-align:center;background:#1b5e20;color:#fff;text-decoration:none;padding:11px 18px;border-radius:12px;font-weight:bold}
+  @media(max-width:600px){.coloring-header h2{font-size:1.8em}.coloring-book-section{padding:25px 10px 45px}.coloring-grid{grid-template-columns:1fr}.color-tool{padding:9px 11px}}
+  @media print{
+    body>*:not(#jungleColoringBook){display:none!important}
+    #jungleColoringBook{display:block!important;background:#fff!important;padding:10px!important;color:#000!important}
+    #jungleColoringBook .coloring-header p,#jungleColoringBook .coloring-toolbar,#jungleColoringBook .coloring-actions,#jungleColoringBook .coloring-back,#jungleColoringBook .coloring-note{display:none!important}
+    #jungleColoringBook .coloring-grid{display:block!important}
+    #jungleColoringBook .coloring-card{page-break-inside:avoid;break-inside:avoid;box-shadow:none;border:0;margin:0 auto 20px;max-width:700px}
+    #jungleColoringBook .coloring-card:not(.print-selected){display:none!important}
+    #jungleColoringBook .coloring-canvas{border:2px solid #000}
+  }
+</style>
+
+</head>
   <body>
     <main class="donation-card">
       <div class="heart">❤️</div>
@@ -506,8 +433,8 @@ Bhumesh Subedar Yadav`
         }
       }
     <\/script>
-  </body>
-  </html>
+  
+
   `);
 
   donationWindow.document.close();
@@ -589,145 +516,6 @@ Bhumesh Subedar Yadav`
   window.speechSynthesis.cancel();
 }
   
-
-    const coloringAnimals = {
-      "Lion": ["#d7ccc8","#8d6e63","#ffcc80","#fff59d","#90caf9"],
-      "Elephant": ["#b0bec5","#90a4ae","#cfd8dc","#fff59d","#81d4fa"],
-      "Tiger": ["#ffb74d","#ff7043","#ffd54f","#81c784","#90caf9"],
-      "Monkey": ["#a1887f","#6d4c41","#ffcc80","#81c784","#90caf9"],
-      "Giraffe": ["#ffd54f","#8d6e63","#ffb74d","#81c784","#90caf9"],
-      "Peacock": ["#26a69a","#42a5f5","#7e57c2","#66bb6a","#ffd54f"],
-      "Panda": ["#212121","#eeeeee","#90caf9","#81c784","#ffcc80"],
-      "Zebra": ["#212121","#ffffff","#90caf9","#81c784","#ffd54f"]
-    };
-
-    function makeColoringPage(canvas, animal){
-      const ctx = canvas.getContext("2d");
-      const dpr = window.devicePixelRatio || 1;
-      const size = 600;
-      canvas.width = size * dpr;
-      canvas.height = size * dpr;
-      ctx.scale(dpr,dpr);
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-
-      function clear(){
-        ctx.save();
-        ctx.fillStyle = "#fff";
-        ctx.fillRect(0,0,size,size);
-        ctx.restore();
-        drawOutline();
-      }
-
-      function drawOutline(){
-        ctx.save();
-        ctx.strokeStyle = "#111";
-        ctx.lineWidth = 8;
-        ctx.fillStyle = "#fff";
-        ctx.beginPath();
-
-        if(animal === "Lion"){
-          ctx.arc(300,300,190,0,Math.PI*2);
-          ctx.fill(); ctx.stroke();
-          ctx.beginPath(); ctx.arc(300,300,115,0,Math.PI*2); ctx.stroke();
-          ctx.beginPath(); ctx.arc(255,275,14,0,Math.PI*2); ctx.stroke();
-          ctx.beginPath(); ctx.arc(345,275,14,0,Math.PI*2); ctx.stroke();
-          ctx.beginPath(); ctx.moveTo(285,325); ctx.quadraticCurveTo(300,340,315,325); ctx.stroke();
-          for(let i=0;i<12;i++){ const a=i*Math.PI/6; ctx.moveTo(300+190*Math.cos(a),300+190*Math.sin(a)); ctx.lineTo(300+225*Math.cos(a),300+225*Math.sin(a)); }
-          ctx.stroke();
-        } else if(animal === "Elephant"){
-          ctx.beginPath(); ctx.ellipse(300,310,170,125,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
-          ctx.beginPath(); ctx.ellipse(165,300,65,95,-.3,0,Math.PI*2); ctx.fill(); ctx.stroke();
-          ctx.beginPath(); ctx.ellipse(435,300,65,95,.3,0,Math.PI*2); ctx.fill(); ctx.stroke();
-          ctx.beginPath(); ctx.moveTo(330,330); ctx.bezierCurveTo(410,340,405,430,350,440); ctx.stroke();
-          ctx.beginPath(); ctx.arc(255,280,10,0,Math.PI*2); ctx.stroke();
-          ctx.beginPath(); ctx.arc(345,280,10,0,Math.PI*2); ctx.stroke();
-        } else if(animal === "Tiger"){
-          ctx.beginPath(); ctx.ellipse(300,320,170,135,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
-          ctx.beginPath(); ctx.moveTo(165,230); ctx.lineTo(205,135); ctx.lineTo(250,210); ctx.stroke();
-          ctx.beginPath(); ctx.moveTo(350,210); ctx.lineTo(395,135); ctx.lineTo(435,230); ctx.stroke();
-          ctx.beginPath(); ctx.arc(250,295,13,0,Math.PI*2); ctx.stroke();
-          ctx.beginPath(); ctx.arc(350,295,13,0,Math.PI*2); ctx.stroke();
-          for(let x=215;x<=385;x+=35){ctx.moveTo(x,225);ctx.lineTo(x+18,265);ctx.moveTo(x,375);ctx.lineTo(x+18,340);}
-          ctx.stroke();
-        } else if(animal === "Monkey"){
-          ctx.beginPath(); ctx.arc(300,300,145,0,Math.PI*2); ctx.fill(); ctx.stroke();
-          ctx.beginPath(); ctx.arc(155,300,55,0,Math.PI*2); ctx.fill(); ctx.stroke();
-          ctx.beginPath(); ctx.arc(445,300,55,0,Math.PI*2); ctx.fill(); ctx.stroke();
-          ctx.beginPath(); ctx.arc(255,280,14,0,Math.PI*2); ctx.stroke();
-          ctx.beginPath(); ctx.arc(345,280,14,0,Math.PI*2); ctx.stroke();
-          ctx.beginPath(); ctx.arc(300,345,45,0,Math.PI); ctx.stroke();
-        } else if(animal === "Giraffe"){
-          ctx.beginPath(); ctx.roundRect(245,150,110,300,35); ctx.fill(); ctx.stroke();
-          ctx.beginPath(); ctx.ellipse(300,120,75,55,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
-          ctx.beginPath(); ctx.arc(275,115,8,0,Math.PI*2); ctx.stroke();
-          ctx.beginPath(); ctx.arc(325,115,8,0,Math.PI*2); ctx.stroke();
-          for(let y=190;y<410;y+=55){ctx.beginPath();ctx.arc(275,y,18,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.arc(325,y+20,15,0,Math.PI*2);ctx.stroke();}
-        } else if(animal === "Peacock"){
-          ctx.beginPath(); ctx.arc(300,290,70,0,Math.PI*2); ctx.fill(); ctx.stroke();
-          for(let i=0;i<12;i++){const a=(i/12)*Math.PI*2; const x=300+180*Math.cos(a), y=260+180*Math.sin(a); ctx.beginPath();ctx.ellipse(x,y,55,80,a,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.beginPath();ctx.arc(x,y,16,0,Math.PI*2);ctx.stroke();}
-          ctx.beginPath();ctx.moveTo(300,360);ctx.lineTo(270,470);ctx.lineTo(330,470);ctx.closePath();ctx.stroke();
-        } else if(animal === "Panda"){
-          ctx.beginPath(); ctx.arc(300,310,150,0,Math.PI*2); ctx.fill(); ctx.stroke();
-          ctx.beginPath(); ctx.arc(210,175,45,0,Math.PI*2); ctx.fill(); ctx.stroke();
-          ctx.beginPath(); ctx.arc(390,175,45,0,Math.PI*2); ctx.fill(); ctx.stroke();
-          ctx.beginPath();ctx.ellipse(245,285,35,55,-.4,0,Math.PI*2);ctx.stroke();
-          ctx.beginPath();ctx.ellipse(355,285,35,55,.4,0,Math.PI*2);ctx.stroke();
-          ctx.beginPath();ctx.arc(260,300,10,0,Math.PI*2);ctx.stroke();ctx.beginPath();ctx.arc(340,300,10,0,Math.PI*2);ctx.stroke();
-        } else if(animal === "Zebra"){
-          ctx.beginPath();ctx.ellipse(300,310,170,120,0,0,Math.PI*2);ctx.fill();ctx.stroke();
-          ctx.beginPath();ctx.ellipse(160,260,70,95,-.2,0,Math.PI*2);ctx.fill();ctx.stroke();
-          ctx.beginPath();ctx.moveTo(115,205);ctx.lineTo(105,155);ctx.moveTo(155,190);ctx.lineTo(155,140);ctx.stroke();
-          for(let x=190;x<420;x+=38){ctx.beginPath();ctx.moveTo(x,215);ctx.lineTo(x-35,400);ctx.stroke();}
-          ctx.beginPath();ctx.arc(145,250,10,0,Math.PI*2);ctx.stroke();
-        }
-        ctx.restore();
-      }
-
-      clear();
-      let drawing=false, last=null, selected=coloringAnimals[animal][0];
-      canvas._colorState = {ctx,size,clear,get selected(){return selected;},set selected(v){selected=v;}};
-
-      canvas.addEventListener("pointerdown",e=>{drawing=true;last=getPos(e);});
-      canvas.addEventListener("pointerup",()=>{drawing=false;last=null;});
-      canvas.addEventListener("pointerleave",()=>{drawing=false;last=null;});
-      canvas.addEventListener("pointermove",e=>{
-        if(!drawing)return;
-        const p=getPos(e);
-        ctx.strokeStyle=selected;
-        ctx.lineWidth=28;
-        ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();
-        last=p;
-      });
-      function getPos(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*size/r.width,y:(e.clientY-r.top)*size/r.height};}
-      canvas._clearColoring = clear;
-      canvas._download = function(){
-        const link=document.createElement("a");
-        link.download=animal.toLowerCase()+"-coloring-book.png";
-        link.href=canvas.toDataURL("image/png");
-        link.click();
-      };
-    }
-
-    function openColoringBook(){
-      document.querySelector(".home-screen").style.display="none";
-      document.querySelector(".story-section").style.display="none";
-      document.querySelector(".coloring-section").style.display="block";
-      document.querySelectorAll(".color-canvas").forEach((c,i)=>{
-        if(!c.dataset.ready){makeColoringPage(c,Object.keys(coloringAnimals)[i]);c.dataset.ready="1";}
-      });
-      window.scrollTo(0,0);
-    }
-    function closeColoringBook(){
-      document.querySelector(".coloring-section").style.display="none";
-      document.querySelector(".home-screen").style.display="flex";
-      window.scrollTo(0,0);
-    }
-    function printColoringBook(){
-      window.print();
-    }
-    function setColor(canvas,color){canvas._colorState.selected=color;}
-
     // Open a particular story when coming from the Interactive Jungle Map.
     window.addEventListener("DOMContentLoaded", function () {
       const storyId = new URLSearchParams(window.location.search).get("story");
@@ -777,106 +565,11 @@ Bhumesh Subedar Yadav`
     <button class="start-button" onclick="startStories()">Start Reading</button>
     <a href="jungle-map.html" class="map-home-button">🗺️ Explore Interactive Jungle Map</a>
     <a href="special-games.html" class="map-home-button">🎮 Special Games</a>
-    <button class="map-home-button" onclick="openColoringBook()">🎨 Jungle Coloring Book</button>
+    <button type="button" class="map-home-button" onclick="openColoringBook()">🎨 Jungle Coloring Book</button>
+    <button type="button" class="map-home-button" onclick="openAnimalEncyclopedia()">🦁 Animal Encyclopedia</button>
   </div>
 
   <button class="music-toggle" onclick="toggleMusic()">🎵 Toggle Music</button>
-
-
-  <div class="coloring-section">
-    <button class="back-button" onclick="closeColoringBook()">⬅ Back to Home</button>
-    <div class="coloring-header">
-      <h2>🎨 Jungle Coloring Book</h2>
-      <p>Choose an animal, pick a color, and draw directly on the picture. You can clear, download, or print your coloring page.</p>
-      <div class="coloring-toolbar">
-        <button class="color-btn" onclick="printColoringBook()">🖨️ Print Coloring Book</button>
-      </div>
-    </div>
-    <div class="coloring-grid">
-
-      <div class="color-card">
-        <h3>Lion</h3>
-        <canvas id="color-lion" class="color-canvas" aria-label="Lion coloring page"></canvas>
-        <div class="color-actions">
-          <button style="background:#d7ccc8;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #d7ccc8" onclick="setColor(document.getElementById('color-lion'), '#d7ccc8')"></button><button style="background:#8d6e63;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #8d6e63" onclick="setColor(document.getElementById('color-lion'), '#8d6e63')"></button><button style="background:#ffcc80;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #ffcc80" onclick="setColor(document.getElementById('color-lion'), '#ffcc80')"></button><button style="background:#fff59d;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #fff59d" onclick="setColor(document.getElementById('color-lion'), '#fff59d')"></button><button style="background:#90caf9;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #90caf9" onclick="setColor(document.getElementById('color-lion'), '#90caf9')"></button>
-          <button onclick="document.getElementById('color-lion')._clearColoring()">🔄 Clear</button>
-          <button onclick="document.getElementById('color-lion')._download()">⬇️ Download</button>
-        </div>
-      </div>
-
-      <div class="color-card">
-        <h3>Elephant</h3>
-        <canvas id="color-elephant" class="color-canvas" aria-label="Elephant coloring page"></canvas>
-        <div class="color-actions">
-          <button style="background:#d7ccc8;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #d7ccc8" onclick="setColor(document.getElementById('color-elephant'), '#d7ccc8')"></button><button style="background:#8d6e63;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #8d6e63" onclick="setColor(document.getElementById('color-elephant'), '#8d6e63')"></button><button style="background:#ffcc80;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #ffcc80" onclick="setColor(document.getElementById('color-elephant'), '#ffcc80')"></button><button style="background:#fff59d;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #fff59d" onclick="setColor(document.getElementById('color-elephant'), '#fff59d')"></button><button style="background:#90caf9;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #90caf9" onclick="setColor(document.getElementById('color-elephant'), '#90caf9')"></button>
-          <button onclick="document.getElementById('color-elephant')._clearColoring()">🔄 Clear</button>
-          <button onclick="document.getElementById('color-elephant')._download()">⬇️ Download</button>
-        </div>
-      </div>
-
-      <div class="color-card">
-        <h3>Tiger</h3>
-        <canvas id="color-tiger" class="color-canvas" aria-label="Tiger coloring page"></canvas>
-        <div class="color-actions">
-          <button style="background:#d7ccc8;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #d7ccc8" onclick="setColor(document.getElementById('color-tiger'), '#d7ccc8')"></button><button style="background:#8d6e63;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #8d6e63" onclick="setColor(document.getElementById('color-tiger'), '#8d6e63')"></button><button style="background:#ffcc80;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #ffcc80" onclick="setColor(document.getElementById('color-tiger'), '#ffcc80')"></button><button style="background:#fff59d;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #fff59d" onclick="setColor(document.getElementById('color-tiger'), '#fff59d')"></button><button style="background:#90caf9;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #90caf9" onclick="setColor(document.getElementById('color-tiger'), '#90caf9')"></button>
-          <button onclick="document.getElementById('color-tiger')._clearColoring()">🔄 Clear</button>
-          <button onclick="document.getElementById('color-tiger')._download()">⬇️ Download</button>
-        </div>
-      </div>
-
-      <div class="color-card">
-        <h3>Monkey</h3>
-        <canvas id="color-monkey" class="color-canvas" aria-label="Monkey coloring page"></canvas>
-        <div class="color-actions">
-          <button style="background:#d7ccc8;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #d7ccc8" onclick="setColor(document.getElementById('color-monkey'), '#d7ccc8')"></button><button style="background:#8d6e63;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #8d6e63" onclick="setColor(document.getElementById('color-monkey'), '#8d6e63')"></button><button style="background:#ffcc80;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #ffcc80" onclick="setColor(document.getElementById('color-monkey'), '#ffcc80')"></button><button style="background:#fff59d;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #fff59d" onclick="setColor(document.getElementById('color-monkey'), '#fff59d')"></button><button style="background:#90caf9;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #90caf9" onclick="setColor(document.getElementById('color-monkey'), '#90caf9')"></button>
-          <button onclick="document.getElementById('color-monkey')._clearColoring()">🔄 Clear</button>
-          <button onclick="document.getElementById('color-monkey')._download()">⬇️ Download</button>
-        </div>
-      </div>
-
-      <div class="color-card">
-        <h3>Giraffe</h3>
-        <canvas id="color-giraffe" class="color-canvas" aria-label="Giraffe coloring page"></canvas>
-        <div class="color-actions">
-          <button style="background:#d7ccc8;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #d7ccc8" onclick="setColor(document.getElementById('color-giraffe'), '#d7ccc8')"></button><button style="background:#8d6e63;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #8d6e63" onclick="setColor(document.getElementById('color-giraffe'), '#8d6e63')"></button><button style="background:#ffcc80;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #ffcc80" onclick="setColor(document.getElementById('color-giraffe'), '#ffcc80')"></button><button style="background:#fff59d;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #fff59d" onclick="setColor(document.getElementById('color-giraffe'), '#fff59d')"></button><button style="background:#90caf9;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #90caf9" onclick="setColor(document.getElementById('color-giraffe'), '#90caf9')"></button>
-          <button onclick="document.getElementById('color-giraffe')._clearColoring()">🔄 Clear</button>
-          <button onclick="document.getElementById('color-giraffe')._download()">⬇️ Download</button>
-        </div>
-      </div>
-
-      <div class="color-card">
-        <h3>Peacock</h3>
-        <canvas id="color-peacock" class="color-canvas" aria-label="Peacock coloring page"></canvas>
-        <div class="color-actions">
-          <button style="background:#d7ccc8;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #d7ccc8" onclick="setColor(document.getElementById('color-peacock'), '#d7ccc8')"></button><button style="background:#8d6e63;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #8d6e63" onclick="setColor(document.getElementById('color-peacock'), '#8d6e63')"></button><button style="background:#ffcc80;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #ffcc80" onclick="setColor(document.getElementById('color-peacock'), '#ffcc80')"></button><button style="background:#fff59d;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #fff59d" onclick="setColor(document.getElementById('color-peacock'), '#fff59d')"></button><button style="background:#90caf9;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #90caf9" onclick="setColor(document.getElementById('color-peacock'), '#90caf9')"></button>
-          <button onclick="document.getElementById('color-peacock')._clearColoring()">🔄 Clear</button>
-          <button onclick="document.getElementById('color-peacock')._download()">⬇️ Download</button>
-        </div>
-      </div>
-
-      <div class="color-card">
-        <h3>Panda</h3>
-        <canvas id="color-panda" class="color-canvas" aria-label="Panda coloring page"></canvas>
-        <div class="color-actions">
-          <button style="background:#d7ccc8;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #d7ccc8" onclick="setColor(document.getElementById('color-panda'), '#d7ccc8')"></button><button style="background:#8d6e63;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #8d6e63" onclick="setColor(document.getElementById('color-panda'), '#8d6e63')"></button><button style="background:#ffcc80;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #ffcc80" onclick="setColor(document.getElementById('color-panda'), '#ffcc80')"></button><button style="background:#fff59d;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #fff59d" onclick="setColor(document.getElementById('color-panda'), '#fff59d')"></button><button style="background:#90caf9;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #90caf9" onclick="setColor(document.getElementById('color-panda'), '#90caf9')"></button>
-          <button onclick="document.getElementById('color-panda')._clearColoring()">🔄 Clear</button>
-          <button onclick="document.getElementById('color-panda')._download()">⬇️ Download</button>
-        </div>
-      </div>
-
-      <div class="color-card">
-        <h3>Zebra</h3>
-        <canvas id="color-zebra" class="color-canvas" aria-label="Zebra coloring page"></canvas>
-        <div class="color-actions">
-          <button style="background:#d7ccc8;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #d7ccc8" onclick="setColor(document.getElementById('color-zebra'), '#d7ccc8')"></button><button style="background:#8d6e63;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #8d6e63" onclick="setColor(document.getElementById('color-zebra'), '#8d6e63')"></button><button style="background:#ffcc80;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #ffcc80" onclick="setColor(document.getElementById('color-zebra'), '#ffcc80')"></button><button style="background:#fff59d;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #fff59d" onclick="setColor(document.getElementById('color-zebra'), '#fff59d')"></button><button style="background:#90caf9;width:38px;height:38px;border:2px solid #555;border-radius:50%;padding:0;" aria-label="Choose color #90caf9" onclick="setColor(document.getElementById('color-zebra'), '#90caf9')"></button>
-          <button onclick="document.getElementById('color-zebra')._clearColoring()">🔄 Clear</button>
-          <button onclick="document.getElementById('color-zebra')._download()">⬇️ Download</button>
-        </div>
-      </div>
-
-    </div>
-    <div class="color-note">🌿 Tip: For young children, start with a large brush and simple colors. On a laptop, use the mouse; on a phone or tablet, use your finger or stylus.</div>
-  </div>
 
   <div class="story-section">
 
@@ -2960,7 +2653,331 @@ Bhumesh Subedar Yadav`
   };
 </script>
 
-<!-- Google Website Translator -->
+<!-- Google Website Transl<!-- 🎨 JUNGLE COLORING BOOK -->
+<section id="jungleColoringBook" class="coloring-book-section">
+  <a href="#" class="coloring-back" onclick="closeColoringBook();return false;">⬅ Back to Jungle Home</a>
+  <div class="coloring-header">
+    <div style="font-size:3em">🎨🌿</div>
+    <h2>Jungle Coloring Book</h2>
+    <p>Choose an animal, pick a color, and tap the different parts of the picture to color them!</p>
+  </div>
+
+  <div class="coloring-toolbar" aria-label="Color palette">
+    <strong>Choose a color:</strong>
+    <button class="color-swatch active" style="background:#ff5252" data-color="#ff5252" aria-label="Red"></button>
+    <button class="color-swatch" style="background:#ffeb3b" data-color="#ffeb3b" aria-label="Yellow"></button>
+    <button class="color-swatch" style="background:#4caf50" data-color="#4caf50" aria-label="Green"></button>
+    <button class="color-swatch" style="background:#2196f3" data-color="#2196f3" aria-label="Blue"></button>
+    <button class="color-swatch" style="background:#ff9800" data-color="#ff9800" aria-label="Orange"></button>
+    <button class="color-swatch" style="background:#9c27b0" data-color="#9c27b0" aria-label="Purple"></button>
+    <button class="color-swatch" style="background:#795548" data-color="#795548" aria-label="Brown"></button>
+    <button class="color-swatch" style="background:#90a4ae" data-color="#90a4ae" aria-label="Gray"></button>
+    <button class="color-tool" onclick="resetAllColoring()">🔄 Reset All</button>
+  </div>
+
+  <div class="coloring-grid">
+    <div class="coloring-card" id="color-card-lion"><h3>🦁 Lion</h3><svg class="coloring-canvas" viewBox="0 0 300 230" aria-label="Lion coloring page">
+      <circle data-part="1" cx="150" cy="105" r="78" fill="#fff" stroke="#111" stroke-width="4"/><circle data-part="2" cx="150" cy="108" r="53" fill="#fff" stroke="#111" stroke-width="4"/>
+      <circle data-part="3" cx="127" cy="100" r="7" fill="#fff" stroke="#111" stroke-width="3"/><circle data-part="4" cx="173" cy="100" r="7" fill="#fff" stroke="#111" stroke-width="3"/>
+      <path data-part="5" d="M142 119 Q150 126 158 119" fill="none" stroke="#111" stroke-width="4"/><path d="M115 70 L92 47 L120 58 M185 70 L208 47 L180 58" fill="#fff" stroke="#111" stroke-width="4"/>
+      <ellipse data-part="6" cx="150" cy="188" rx="75" ry="22" fill="#fff" stroke="#111" stroke-width="4"/>
+    </svg><div class="coloring-actions"><button onclick="downloadColoring('color-card-lion','Lion')">💾 Download</button><button onclick="printColoring('color-card-lion')">🖨️ Print</button></div></div>
+
+    <div class="coloring-card" id="color-card-elephant"><h3>🐘 Elephant</h3><svg class="coloring-canvas" viewBox="0 0 300 230" aria-label="Elephant coloring page">
+      <ellipse data-part="1" cx="145" cy="115" rx="78" ry="55" fill="#fff" stroke="#111" stroke-width="4"/><ellipse data-part="2" cx="82" cy="105" rx="37" ry="48" fill="#fff" stroke="#111" stroke-width="4"/>
+      <path data-part="3" d="M60 125 Q25 145 48 185 Q58 198 72 184 L70 145" fill="#fff" stroke="#111" stroke-width="4"/>
+      <circle data-part="4" cx="73" cy="95" r="6" fill="#fff" stroke="#111" stroke-width="3"/><circle data-part="5" cx="175" cy="105" r="6" fill="#fff" stroke="#111" stroke-width="3"/>
+      <ellipse data-part="6" cx="117" cy="185" rx="13" ry="28" fill="#fff" stroke="#111" stroke-width="4"/><ellipse data-part="7" cx="184" cy="185" rx="13" ry="28" fill="#fff" stroke="#111" stroke-width="4"/>
+      <path d="M220 100 Q245 65 263 92 Q245 112 220 123" fill="#fff" stroke="#111" stroke-width="4"/>
+    </svg><div class="coloring-actions"><button onclick="downloadColoring('color-card-elephant','Elephant')">💾 Download</button><button onclick="printColoring('color-card-elephant')">🖨️ Print</button></div></div>
+
+    <div class="coloring-card" id="color-card-tiger"><h3>🐯 Tiger</h3><svg class="coloring-canvas" viewBox="0 0 300 230" aria-label="Tiger coloring page">
+      <ellipse data-part="1" cx="150" cy="115" rx="67" ry="73" fill="#fff" stroke="#111" stroke-width="4"/><circle data-part="2" cx="125" cy="105" r="7" fill="#fff" stroke="#111" stroke-width="3"/><circle data-part="3" cx="175" cy="105" r="7" fill="#fff" stroke="#111" stroke-width="3"/>
+      <path data-part="4" d="M143 122 Q150 130 157 122" fill="none" stroke="#111" stroke-width="4"/><path d="M108 70 L92 48 M125 62 L119 38 M192 70 L208 48 M175 62 L181 38" stroke="#111" stroke-width="7"/>
+      <path d="M95 110 L115 116 M205 110 L185 116 M100 145 L118 139 M200 145 L182 139" stroke="#111" stroke-width="6"/>
+      <ellipse data-part="5" cx="105" cy="188" rx="13" ry="25" fill="#fff" stroke="#111" stroke-width="4"/><ellipse data-part="6" cx="195" cy="188" rx="13" ry="25" fill="#fff" stroke="#111" stroke-width="4"/>
+    </svg><div class="coloring-actions"><button onclick="downloadColoring('color-card-tiger','Tiger')">💾 Download</button><button onclick="printColoring('color-card-tiger')">🖨️ Print</button></div></div>
+
+    <div class="coloring-card" id="color-card-monkey"><h3>🐒 Monkey</h3><svg class="coloring-canvas" viewBox="0 0 300 230" aria-label="Monkey coloring page">
+      <circle data-part="1" cx="150" cy="110" r="60" fill="#fff" stroke="#111" stroke-width="4"/><circle data-part="2" cx="91" cy="108" r="25" fill="#fff" stroke="#111" stroke-width="4"/><circle data-part="3" cx="209" cy="108" r="25" fill="#fff" stroke="#111" stroke-width="4"/>
+      <circle data-part="4" cx="130" cy="105" r="7" fill="#fff" stroke="#111" stroke-width="3"/><circle data-part="5" cx="170" cy="105" r="7" fill="#fff" stroke="#111" stroke-width="3"/>
+      <ellipse data-part="6" cx="150" cy="133" rx="30" ry="20" fill="#fff" stroke="#111" stroke-width="4"/><path d="M205 160 Q270 150 245 80" fill="none" stroke="#111" stroke-width="8"/>
+      <ellipse data-part="7" cx="120" cy="192" rx="13" ry="25" fill="#fff" stroke="#111" stroke-width="4"/><ellipse data-part="8" cx="180" cy="192" rx="13" ry="25" fill="#fff" stroke="#111" stroke-width="4"/>
+    </svg><div class="coloring-actions"><button onclick="downloadColoring('color-card-monkey','Monkey')">💾 Download</button><button onclick="printColoring('color-card-monkey')">🖨️ Print</button></div></div>
+
+    <div class="coloring-card" id="color-card-giraffe"><h3>🦒 Giraffe</h3><svg class="coloring-canvas" viewBox="0 0 300 230" aria-label="Giraffe coloring page">
+      <path data-part="1" d="M115 190 L125 70 Q130 35 150 35 Q170 35 175 70 L190 190 Z" fill="#fff" stroke="#111" stroke-width="4"/>
+      <ellipse data-part="2" cx="150" cy="47" rx="43" ry="32" fill="#fff" stroke="#111" stroke-width="4"/><circle data-part="3" cx="135" cy="45" r="6" fill="#fff" stroke="#111" stroke-width="3"/><circle data-part="4" cx="165" cy="45" r="6" fill="#fff" stroke="#111" stroke-width="3"/>
+      <path d="M132 18 L132 5 M168 18 L168 5" stroke="#111" stroke-width="5"/><circle cx="132" cy="5" r="4" fill="#fff" stroke="#111" stroke-width="3"/><circle cx="168" cy="5" r="4" fill="#fff" stroke="#111" stroke-width="3"/>
+      <path data-part="5" d="M125 82 L143 72 L158 87 L178 78 M122 115 L142 105 L160 120 L181 108 M120 150 L140 140 L160 154 L184 143" fill="none" stroke="#111" stroke-width="12"/>
+      <ellipse data-part="6" cx="133" cy="196" rx="10" ry="24" fill="#fff" stroke="#111" stroke-width="4"/><ellipse data-part="7" cx="171" cy="196" rx="10" ry="24" fill="#fff" stroke="#111" stroke-width="4"/>
+    </svg><div class="coloring-actions"><button onclick="downloadColoring('color-card-giraffe','Giraffe')">💾 Download</button><button onclick="printColoring('color-card-giraffe')">🖨️ Print</button></div></div>
+
+    <div class="coloring-card" id="color-card-peacock"><h3>🦚 Peacock</h3><svg class="coloring-canvas" viewBox="0 0 300 230" aria-label="Peacock coloring page">
+      <path data-part="1" d="M150 150 Q45 145 40 65 Q95 70 150 120 Q205 70 260 65 Q255 145 150 150" fill="#fff" stroke="#111" stroke-width="4"/>
+      <ellipse data-part="2" cx="150" cy="142" rx="28" ry="58" fill="#fff" stroke="#111" stroke-width="4"/><circle data-part="3" cx="150" cy="78" r="28" fill="#fff" stroke="#111" stroke-width="4"/>
+      <circle data-part="4" cx="142" cy="74" r="5" fill="#fff" stroke="#111" stroke-width="3"/><circle data-part="5" cx="158" cy="74" r="5" fill="#fff" stroke="#111" stroke-width="3"/>
+      <path d="M150 50 L150 25 M140 52 L132 28 M160 52 L168 28" stroke="#111" stroke-width="4"/>
+      <circle data-part="6" cx="75" cy="92" r="13" fill="#fff" stroke="#111" stroke-width="3"/><circle data-part="7" cx="225" cy="92" r="13" fill="#fff" stroke="#111" stroke-width="3"/>
+      <circle data-part="8" cx="105" cy="118" r="13" fill="#fff" stroke="#111" stroke-width="3"/><circle data-part="9" cx="195" cy="118" r="13" fill="#fff" stroke="#111" stroke-width="3"/>
+    </svg><div class="coloring-actions"><button onclick="downloadColoring('color-card-peacock','Peacock')">💾 Download</button><button onclick="printColoring('color-card-peacock')">🖨️ Print</button></div></div>
+
+    <div class="coloring-card" id="color-card-panda"><h3>🐼 Panda</h3><svg class="coloring-canvas" viewBox="0 0 300 230" aria-label="Panda coloring page">
+      <circle data-part="1" cx="150" cy="110" r="65" fill="#fff" stroke="#111" stroke-width="4"/><circle data-part="2" cx="105" cy="60" r="25" fill="#fff" stroke="#111" stroke-width="4"/><circle data-part="3" cx="195" cy="60" r="25" fill="#fff" stroke="#111" stroke-width="4"/>
+      <ellipse data-part="4" cx="125" cy="105" rx="15" ry="20" fill="#fff" stroke="#111" stroke-width="4"/><ellipse data-part="5" cx="175" cy="105" rx="15" ry="20" fill="#fff" stroke="#111" stroke-width="4"/>
+      <circle cx="125" cy="108" r="5" fill="#111"/><circle cx="175" cy="108" r="5" fill="#111"/><ellipse data-part="6" cx="150" cy="137" rx="20" ry="13" fill="#fff" stroke="#111" stroke-width="4"/>
+      <ellipse data-part="7" cx="108" cy="188" rx="15" ry="25" fill="#fff" stroke="#111" stroke-width="4"/><ellipse data-part="8" cx="192" cy="188" rx="15" ry="25" fill="#fff" stroke="#111" stroke-width="4"/>
+    </svg><div class="coloring-actions"><button onclick="downloadColoring('color-card-panda','Panda')">💾 Download</button><button onclick="printColoring('color-card-panda')">🖨️ Print</button></div></div>
+
+    <div class="coloring-card" id="color-card-zebra"><h3>🦓 Zebra</h3><svg class="coloring-canvas" viewBox="0 0 300 230" aria-label="Zebra coloring page">
+      <ellipse data-part="1" cx="150" cy="125" rx="80" ry="48" fill="#fff" stroke="#111" stroke-width="4"/><path data-part="2" d="M205 110 Q215 55 245 60 Q270 70 248 105 L220 135" fill="#fff" stroke="#111" stroke-width="4"/>
+      <circle data-part="3" cx="235" cy="78" r="5" fill="#fff" stroke="#111" stroke-width="3"/><path d="M226 57 L220 35 M242 58 L250 36" stroke="#111" stroke-width="5"/>
+      <path d="M92 100 L115 150 M112 88 L135 160 M135 82 L158 165 M158 82 L181 160 M180 90 L202 150" stroke="#111" stroke-width="8"/>
+      <ellipse data-part="4" cx="105" cy="190" rx="11" ry="27" fill="#fff" stroke="#111" stroke-width="4"/><ellipse data-part="5" cx="195" cy="190" rx="11" ry="27" fill="#fff" stroke="#111" stroke-width="4"/>
+    </svg><div class="coloring-actions"><button onclick="downloadColoring('color-card-zebra','Zebra')">💾 Download</button><button onclick="printColoring('color-card-zebra')">🖨️ Print</button></div></div>
+  </div>
+  <div class="coloring-note">💡 Tip: Color with your mouse on a laptop or tap the animal parts on a phone/tablet. Use Download to save your finished picture as an SVG file.</div>
+</section>
+
+<script id="jungle-coloring-book-script">
+(function(){
+  let selectedColor='#ff5252';
+  const section=document.getElementById('jungleColoringBook');
+  document.querySelectorAll('#jungleColoringBook .color-swatch').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      selectedColor=this.dataset.color;
+      document.querySelectorAll('#jungleColoringBook .color-swatch').forEach(x=>x.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+  section.querySelectorAll('svg [data-part]').forEach(part=>{
+    part.addEventListener('click',function(){
+      if(this.tagName.toLowerCase()==='path' && this.getAttribute('fill')==='none'){
+        this.setAttribute('stroke',selectedColor);
+      }else{this.setAttribute('fill',selectedColor);}
+    });
+  });
+  window.openColoringBook=function(){
+    document.querySelector('.home-screen').style.display='none';
+    document.querySelector('.story-section').style.display='none';
+    document.querySelector('.coloring-book-section').style.display='block';
+    window.scrollTo(0,0);
+  };
+  window.closeColoringBook=function(){
+    document.querySelector('.coloring-book-section').style.display='none';
+    document.querySelector('.home-screen').style.display='flex';
+    window.scrollTo(0,0);
+  };
+  window.resetAllColoring=function(){
+    section.querySelectorAll('svg [data-part]').forEach(part=>{
+      if(part.tagName.toLowerCase()==='path' && part.getAttribute('d') && part.getAttribute('fill')==='none') part.setAttribute('stroke','#111');
+      else part.setAttribute('fill','#fff');
+    });
+  };
+  window.downloadColoring=function(cardId,name){
+    const svg=document.querySelector('#'+cardId+' svg').cloneNode(true);
+    svg.setAttribute('xmlns','http://www.w3.org/2000/svg');
+    svg.setAttribute('width','1200');svg.setAttribute('height','920');
+    const blob=new Blob([new XMLSerializer().serializeToString(svg)],{type:'image/svg+xml;charset=utf-8'});
+    const url=URL.createObjectURL(blob);const a=document.createElement('a');
+    a.href=url;a.download='Jungle-Coloring-'+name+'.svg';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  };
+  window.printColoring=function(cardId){
+    section.querySelectorAll('.coloring-card').forEach(c=>c.classList.remove('print-selected'));
+    const card=document.getElementById(cardId);card.classList.add('print-selected');
+    window.print();
+    setTimeout(()=>card.classList.remove('print-selected'),1000);
+  };
+})();
+</script>
+
+
+<!-- 🦁 ANIMAL ENCYCLOPEDIA -->
+<style id="animal-encyclopedia-styles">
+  #animalEncyclopedia{
+    display:none;
+    min-height:100vh;
+    padding:95px 18px 50px;
+    box-sizing:border-box;
+    background:linear-gradient(135deg,#e8f5e9,#f1f8e9 45%,#fffde7);
+    color:#18351f;
+    font-family:Arial,Helvetica,sans-serif;
+  }
+  .encyclopedia-wrap{max-width:1200px;margin:auto}
+  .encyclopedia-back{display:inline-block;background:#1b5e20;color:#fff;text-decoration:none;padding:11px 18px;border-radius:12px;font-weight:bold;box-shadow:2px 3px 7px rgba(0,0,0,.18);margin-bottom:18px}
+  .encyclopedia-header{text-align:center;background:rgba(255,255,255,.9);border-radius:24px;padding:22px;box-shadow:0 10px 28px rgba(0,0,0,.10)}
+  .encyclopedia-header h2{margin:4px 0 8px;color:#1b5e20;font-size:2.35em}
+  .encyclopedia-header p{margin:0 auto;max-width:850px;line-height:1.6;color:#53635a}
+  .encyclopedia-tools{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:20px 0}
+  .encyclopedia-search{width:min(560px,100%);padding:14px 16px;border:2px solid #81c784;border-radius:14px;font-size:16px;outline:none;box-sizing:border-box}
+  .encyclopedia-filter{padding:12px 15px;border:2px solid #81c784;border-radius:14px;background:#fff;font-weight:bold;font-size:15px}
+  .animal-count{text-align:center;font-weight:bold;color:#2e7d32;margin:6px 0 18px}
+  .animal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+  .animal-card{background:rgba(255,255,255,.97);border-radius:22px;padding:18px;border:2px solid #a5d6a7;box-shadow:0 9px 24px rgba(0,0,0,.10);transition:transform .2s,box-shadow .2s}
+  .animal-card:hover{transform:translateY(-4px);box-shadow:0 13px 30px rgba(0,0,0,.14)}
+  .animal-card h3{margin:0 0 10px;color:#1b5e20;font-size:1.45em}
+  .animal-emoji{font-size:2.5em;float:right;margin-left:8px}
+  .animal-fact{clear:both;margin:8px 0 13px;padding:10px 12px;background:#f1f8e9;border-radius:12px;line-height:1.45;color:#35513b}
+  .animal-info{display:grid;gap:7px;margin:0}
+  .animal-info div{padding:8px 10px;background:#fafafa;border-radius:10px;border-left:4px solid #66bb6a;line-height:1.4}
+  .animal-info strong{color:#24552e}
+  .status{font-weight:bold}
+  .status.en{color:#c62828}.status.vu{color:#ef6c00}.status.nt{color:#8d6e00}.status.lc{color:#2e7d32}.status.cr{color:#8e0000}.status.varies{color:#5e35b1}
+  .encyclopedia-source{margin:24px auto 0;max-width:900px;padding:14px 16px;background:#fff8e1;border-radius:14px;color:#5d4b16;line-height:1.5;font-size:14px}
+  @media(max-width:600px){
+    #animalEncyclopedia{padding:82px 10px 35px}
+    .encyclopedia-header h2{font-size:1.8em}
+    .animal-grid{grid-template-columns:1fr}
+  }
+</style>
+
+<section id="animalEncyclopedia" aria-label="Animal Encyclopedia">
+  <div class="encyclopedia-wrap">
+    <a href="#" class="encyclopedia-back" onclick="closeAnimalEncyclopedia();return false;">⬅ Back to Jungle Home</a>
+    <div class="encyclopedia-header">
+      <div style="font-size:3em">📚🌿🦁</div>
+      <h2>Animal Encyclopedia</h2>
+      <p>Explore friendly fact cards about jungle and wild animals. Learn about habitat, food, lifespan, size, interesting facts, and conservation status.</p>
+    </div>
+
+    <div class="encyclopedia-tools">
+      <input id="animalSearch" class="encyclopedia-search" type="search" placeholder="🔎 Search an animal..." aria-label="Search animals">
+      <select id="animalFilter" class="encyclopedia-filter" aria-label="Filter animals">
+        <option value="all">All Animals</option>
+        <option value="mammal">Mammals</option>
+        <option value="bird">Birds</option>
+        <option value="reptile">Reptiles</option>
+      </select>
+    </div>
+    <div id="animalCount" class="animal-count"></div>
+
+    <div id="animalGrid" class="animal-grid">
+      <article class="animal-card" data-name="elephant asian elephant" data-type="mammal">
+        <span class="animal-emoji">🐘</span><h3>Elephant</h3>
+        <div class="animal-fact"><strong>Interesting fact:</strong> Elephants use their trunks for breathing, smelling, touching, drinking, and picking up food.</div>
+        <div class="animal-info"><div><strong>Habitat:</strong> Grasslands, forests, wetlands and savannas.</div><div><strong>Food:</strong> Grass, leaves, bark, roots, fruits and other plants.</div><div><strong>Lifespan:</strong> Often around 50–70 years, depending on species and conditions.</div><div><strong>Size:</strong> Large adults can stand about 2.5–4 m at the shoulder.</div><div><strong>Conservation:</strong> <span class="status en">Endangered</span> for the Asian elephant; African elephant species have different assessments.</div></div>
+      </article>
+
+      <article class="animal-card" data-name="lion" data-type="mammal">
+        <span class="animal-emoji">🦁</span><h3>Lion</h3>
+        <div class="animal-fact"><strong>Interesting fact:</strong> Lions are social big cats and often live in family groups called prides.</div>
+        <div class="animal-info"><div><strong>Habitat:</strong> African savannas, grasslands and open woodland; a small population lives in India.</div><div><strong>Food:</strong> Mainly large and medium-sized mammals.</div><div><strong>Lifespan:</strong> Commonly about 10–15 years in the wild.</div><div><strong>Size:</strong> Adult males can weigh roughly 150–250 kg; females are generally smaller.</div><div><strong>Conservation:</strong> <span class="status vu">Vulnerable</span> globally.</div></div>
+      </article>
+
+      <article class="animal-card" data-name="tiger bengal tiger" data-type="mammal">
+        <span class="animal-emoji">🐯</span><h3>Tiger</h3>
+        <div class="animal-fact"><strong>Interesting fact:</strong> Every tiger has a unique stripe pattern, similar to a fingerprint.</div>
+        <div class="animal-info"><div><strong>Habitat:</strong> Forests, grasslands, mangroves and other suitable habitats across parts of Asia.</div><div><strong>Food:</strong> Deer, wild pigs and other mammals.</div><div><strong>Lifespan:</strong> Usually around 10–15 years in the wild.</div><div><strong>Size:</strong> Adult size varies greatly by subspecies and sex; large males may exceed 200 kg.</div><div><strong>Conservation:</strong> <span class="status en">Endangered</span>.</div></div>
+      </article>
+
+      <article class="animal-card" data-name="panda giant panda" data-type="mammal">
+        <span class="animal-emoji">🐼</span><h3>Giant Panda</h3>
+        <div class="animal-fact"><strong>Interesting fact:</strong> Giant pandas spend many hours each day eating bamboo.</div>
+        <div class="animal-info"><div><strong>Habitat:</strong> Mountain forests of central China.</div><div><strong>Food:</strong> Mostly bamboo, with small amounts of other foods.</div><div><strong>Lifespan:</strong> Often around 15–20 years in the wild; longer in managed care.</div><div><strong>Size:</strong> Adults commonly weigh about 70–120 kg.</div><div><strong>Conservation:</strong> <span class="status vu">Vulnerable</span>.</div></div>
+      </article>
+
+      <article class="animal-card" data-name="giraffe" data-type="mammal">
+        <span class="animal-emoji">🦒</span><h3>Giraffe</h3>
+        <div class="animal-fact"><strong>Interesting fact:</strong> A giraffe's long neck helps it reach leaves high above the ground.</div>
+        <div class="animal-info"><div><strong>Habitat:</strong> African savannas, grasslands and open woodland.</div><div><strong>Food:</strong> Leaves, shoots, flowers and other plant material.</div><div><strong>Lifespan:</strong> Often around 20–25 years in the wild.</div><div><strong>Size:</strong> Many adults are about 4–5.5 m tall.</div><div><strong>Conservation:</strong> <span class="status vu">Vulnerable</span> overall; status can differ among giraffe species and subspecies.</div></div>
+      </article>
+
+      <article class="animal-card" data-name="zebra plains zebra" data-type="mammal">
+        <span class="animal-emoji">🦓</span><h3>Zebra</h3>
+        <div class="animal-fact"><strong>Interesting fact:</strong> No two zebras have exactly the same stripe pattern.</div>
+        <div class="animal-info"><div><strong>Habitat:</strong> African grasslands, savannas and open woodland.</div><div><strong>Food:</strong> Mainly grasses, with some leaves and other plants.</div><div><strong>Lifespan:</strong> Often around 20–25 years in the wild.</div><div><strong>Size:</strong> Plains zebras commonly stand about 1.2–1.4 m at the shoulder.</div><div><strong>Conservation:</strong> <span class="status nt">Near Threatened</span> for the plains zebra; other zebra species differ.</div></div>
+      </article>
+
+      <article class="animal-card" data-name="crocodile saltwater crocodile" data-type="reptile">
+        <span class="animal-emoji">🐊</span><h3>Crocodile</h3>
+        <div class="animal-fact"><strong>Interesting fact:</strong> Crocodiles can replace teeth throughout their lives.</div>
+        <div class="animal-info"><div><strong>Habitat:</strong> Rivers, lakes, wetlands, estuaries and coastal waters depending on species.</div><div><strong>Food:</strong> Fish, birds, reptiles, mammals and other available prey.</div><div><strong>Lifespan:</strong> Often several decades; some large species can live 60–70 years or more.</div><div><strong>Size:</strong> Varies greatly by species; the largest crocodilians can exceed 6 m.</div><div><strong>Conservation:</strong> <span class="status varies">Varies by species</span>; for example, saltwater crocodiles are Least Concern globally.</div></div>
+      </article>
+
+      <article class="animal-card" data-name="wolf gray wolf" data-type="mammal">
+        <span class="animal-emoji">🐺</span><h3>Wolf</h3>
+        <div class="animal-fact"><strong>Interesting fact:</strong> Wolves communicate using sounds, body language and scent marking.</div>
+        <div class="animal-info"><div><strong>Habitat:</strong> Forests, grasslands, tundra, mountains and other northern habitats.</div><div><strong>Food:</strong> Deer, elk, wild boar, smaller mammals and other prey.</div><div><strong>Lifespan:</strong> Commonly around 6–8 years in the wild, with some living longer.</div><div><strong>Size:</strong> Gray wolves vary by region; adults may weigh roughly 25–60 kg.</div><div><strong>Conservation:</strong> <span class="status lc">Least Concern</span> for the gray wolf globally, though local populations may face threats.</div></div>
+      </article>
+
+      <article class="animal-card" data-name="owl bird" data-type="bird">
+        <span class="animal-emoji">🦉</span><h3>Owl</h3>
+        <div class="animal-fact"><strong>Interesting fact:</strong> Many owls can fly very quietly because of special feather structures.</div>
+        <div class="animal-info"><div><strong>Habitat:</strong> Forests, grasslands, deserts, farms and even cities, depending on species.</div><div><strong>Food:</strong> Insects, rodents, birds, reptiles and other small animals.</div><div><strong>Lifespan:</strong> Highly species-dependent; many wild owls live several years to more than a decade.</div><div><strong>Size:</strong> Varies enormously, from small species to large eagle-owls.</div><div><strong>Conservation:</strong> <span class="status varies">Varies by species</span>.</div></div>
+      </article>
+
+      <article class="animal-card" data-name="rhino rhinoceros" data-type="mammal">
+        <span class="animal-emoji">🦏</span><h3>Rhinoceros</h3>
+        <div class="animal-fact"><strong>Interesting fact:</strong> A rhino's horn is made mainly of keratin, the same protein found in human hair and nails.</div>
+        <div class="animal-info"><div><strong>Habitat:</strong> Grasslands, savannas, shrublands and forests depending on species.</div><div><strong>Food:</strong> Grasses, leaves, shoots, fruits or other vegetation depending on species.</div><div><strong>Lifespan:</strong> Commonly around 35–50 years.</div><div><strong>Size:</strong> Species vary greatly; large rhinos can weigh more than 2,000 kg.</div><div><strong>Conservation:</strong> <span class="status varies">Varies by species</span>; black rhinos are Critically Endangered, while white rhinos are Near Threatened.</div></div>
+      </article>
+
+      <article class="animal-card" data-name="monkey" data-type="mammal">
+        <span class="animal-emoji">🐒</span><h3>Monkey</h3>
+        <div class="animal-fact"><strong>Interesting fact:</strong> Monkeys show a wide range of social behavior and use many different calls and gestures.</div>
+        <div class="animal-info"><div><strong>Habitat:</strong> Forests, woodlands, grasslands and mountains depending on species.</div><div><strong>Food:</strong> Fruits, leaves, seeds, flowers, insects and other foods depending on species.</div><div><strong>Lifespan:</strong> Commonly 10–30 years, but highly species-dependent.</div><div><strong>Size:</strong> Ranges from small monkeys under 1 kg to much larger species.</div><div><strong>Conservation:</strong> <span class="status varies">Varies by species</span>.</div></div>
+      </article>
+
+      <article class="animal-card" data-name="peacock indian peafowl" data-type="bird">
+        <span class="animal-emoji">🦚</span><h3>Peacock</h3>
+        <div class="animal-fact"><strong>Interesting fact:</strong> The male Indian peafowl spreads its long train during courtship displays.</div>
+        <div class="animal-info"><div><strong>Habitat:</strong> Open forests, scrublands, grasslands and cultivated areas in South Asia.</div><div><strong>Food:</strong> Seeds, grains, fruits, plants and small animals such as insects.</div><div><strong>Lifespan:</strong> Often around 10–20 years, depending on conditions.</div><div><strong>Size:</strong> Males can reach around 2 m in total length including the train.</div><div><strong>Conservation:</strong> <span class="status lc">Least Concern</span> for the Indian peafowl.</div></div>
+      </article>
+
+      <article class="animal-card" data-name="fox" data-type="mammal">
+        <span class="animal-emoji">🦊</span><h3>Fox</h3>
+        <div class="animal-fact"><strong>Interesting fact:</strong> Foxes use a combination of hearing, smell, body language and vocal calls to communicate.</div>
+        <div class="animal-info"><div><strong>Habitat:</strong> Forests, grasslands, deserts, mountains, farmland and urban areas depending on species.</div><div><strong>Food:</strong> Small mammals, birds, insects, fruits and other available foods.</div><div><strong>Lifespan:</strong> Many wild foxes live around 3–6 years, with some living longer.</div><div><strong>Size:</strong> Varies by species; the red fox is commonly about 35–50 cm tall at the shoulder.</div><div><strong>Conservation:</strong> <span class="status varies">Varies by species</span>; the red fox is Least Concern globally.</div></div>
+      </article>
+    </div>
+
+    <div class="encyclopedia-source"><strong>📚 Conservation note:</strong> Conservation categories are species-specific and can change as assessments are updated. The IUCN Red List (Version 2026-1) uses categories including Least Concern, Near Threatened, Vulnerable, Endangered and Critically Endangered. This website's cards use simplified educational summaries and should not replace the latest species assessment.</div>
+  </div>
+</section>
+
+<script id="animal-encyclopedia-script">
+(function(){
+  const section=document.getElementById('animalEncyclopedia');
+  const grid=document.getElementById('animalGrid');
+  const search=document.getElementById('animalSearch');
+  const filter=document.getElementById('animalFilter');
+  const count=document.getElementById('animalCount');
+  const cards=Array.from(grid.querySelectorAll('.animal-card'));
+
+  function filterAnimals(){
+    const q=(search.value||'').trim().toLowerCase();
+    const type=filter.value;
+    let visible=0;
+    cards.forEach(card=>{
+      const matchesText=!q || card.dataset.name.includes(q) || card.innerText.toLowerCase().includes(q);
+      const matchesType=type==='all' || card.dataset.type===type;
+      const show=matchesText && matchesType;
+      card.style.display=show?'block':'none';
+      if(show) visible++;
+    });
+    count.textContent=visible+' animal'+(visible===1?'':'s')+' shown';
+  }
+
+  search.addEventListener('input',filterAnimals);
+  filter.addEventListener('change',filterAnimals);
+  filterAnimals();
+
+  window.openAnimalEncyclopedia=function(){
+    document.querySelector('.home-screen').style.display='none';
+    document.querySelector('.story-section').style.display='none';
+    const coloring=document.querySelector('.coloring-book-section');
+    if(coloring) coloring.style.display='none';
+    section.style.display='block';
+    window.scrollTo(0,0);
+  };
+  window.closeAnimalEncyclopedia=function(){
+    section.style.display='none';
+    document.querySelector('.home-screen').style.display='flex';
+    window.scrollTo(0,0);
+  };
+})();
+</script>
+ator -->
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
