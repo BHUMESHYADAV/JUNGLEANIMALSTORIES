@@ -923,8 +923,11 @@ Bhumesh Subedar Yadav`
 }
 </style>
 
-</head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#1b5e20"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icons/icon-192.png" sizes="192x192"><link rel="apple-touch-icon" href="icons/icon-192.png"><style>#pwa-status{position:fixed;left:12px;bottom:14px;z-index:3000;background:#173b20;color:#fff;padding:9px 13px;border-radius:18px;font:600 14px system-ui;box-shadow:0 2px 8px #0005}#pwa-install,#pwa-update{display:none;position:fixed;left:12px;bottom:60px;z-index:3000;border:0;border-radius:18px;padding:10px 14px;background:#ffca28;color:#263238;font-weight:700;cursor:pointer}#pwa-update{left:auto;right:12px}</style></head>
 <body>
+  <div id="pwa-status" role="status" aria-live="polite">Online</div>
+  <button id="pwa-install" type="button">Install app</button>
+  <button id="pwa-update" type="button">Update available — reload</button>
 
   <audio id="bgMusic" src="softmusic.mp3" loop></audio>
 
@@ -3157,5 +3160,5 @@ Bhumesh Subedar Yadav`
 <!-- Google Website Translator -->
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-</body>
+<script>(function(){const status=document.getElementById('pwa-status'),install=document.getElementById('pwa-install'),update=document.getElementById('pwa-update');function online(){status.textContent=navigator.onLine?'Online':'Offline — saved stories and games available';status.style.background=navigator.onLine?'#173b20':'#8a3b00'}online();addEventListener('online',online);addEventListener('offline',online);let promptEvent;addEventListener('beforeinstallprompt',e=>{e.preventDefault();promptEvent=e;install.style.display='block'});install.addEventListener('click',async()=>{if(!promptEvent){status.textContent='Use your browser menu and choose Install app or Add to Home screen.';return}promptEvent.prompt();await promptEvent.userChoice;promptEvent=null;install.style.display='none'});if('serviceWorker'in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('service-worker.js').then(reg=>{if(reg.waiting)update.style.display='block';reg.addEventListener('updatefound',()=>{const w=reg.installing;if(w)w.addEventListener('statechange',()=>{if(w.state==='installed'&&navigator.serviceWorker.controller)update.style.display='block'})});update.addEventListener('click',()=>{if(reg.waiting)reg.waiting.postMessage({type:'SKIP_WAITING'})});navigator.serviceWorker.addEventListener('controllerchange',()=>location.reload())}).catch(()=>{status.textContent='Offline setup unavailable'})})();</script></body>
 </html>
